@@ -13419,4 +13419,4 @@ client.on("message", message => {
 	} 
 });
 
-client.login('NTE1NTkwMTg4MzQ1MzI3NjE2.DvvMxQ.VWLrya1QDNu7uK5OyXJbgZUT-SY');
+client.login('NTI1MDQwNzQ1NTIzMTgzNjI4.Dvw2aQ.lj7kt2xq0xk2ZbHrdLxLjQj3yE8');
