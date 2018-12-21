@@ -12439,7 +12439,7 @@ message.member.addRole(message.guild.roles.find("name", "100"));
 
   if (message.content === '!colors') {
       if (!message.channel.guild) return;
-    message.channel.sendFile('https://cdn.discordapp.com/attachments/521354464297353226/523405148077424640/colors.png');
+    message.channel.sendFile('https://cdn.discordapp.com/attachments/521354464297353226/525719544082202624/colors.png');
 			     
   }
 	
@@ -13367,7 +13367,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === '.') {
-    msg.channel.send(' **__-Wèlçomè Ťø Mix Śeŕveŕ__** ');
+    msg.channel.send(' **__-Wèlçomè Ťø HÈRØ Śeŕveŕ__** ');
   }
 });
 
