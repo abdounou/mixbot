@@ -43,7 +43,7 @@ client.on("message", message => {
 
 ***__وصف عن البوت__***
 **
-ZeroBot ✨ 
+ Legnds~System✨ 
 متعدد الميزات و الاوامر فيه اوامر جميله يحتوي هذا البوت على
 خاصيه قائمه الالوان و تقدر تغير لونك زي برو بوت و مانع الاسبام و الترحيب 
 بصوره
@@ -830,7 +830,7 @@ client.on("message", (message) => {
  .setThumbnail(client.user.avatarURL)     
  .setDescription("Add me" + `
  **
-رابط البوت | https://discordapp.com/api/oauth2/authorize?client_id=521352883845988362&permissions=8&scope=bot
+رابط البوت | https://discordapp.com/api/oauth2/authorize?client_id=528191930056704040&permissions=0&scope=bot
  **
 `);
   message.author.sendEmbed(embed);
@@ -847,7 +847,7 @@ client.on("message", (message) => {
  .setThumbnail(client.user.avatarURL)     
  .setDescription(" ***welcome To server support*** " + `
  **
-رابط السيرفر | https://discord.gg/skUuTNr
+رابط السيرفر | https://discord.gg/UsSPXq8
  **
 `);
   message.author.sendEmbed(embed);
@@ -1039,8 +1039,8 @@ client.on('message', message => {
   if (command == "ban") {
                if(!message.channel.guild) return message.reply('** This command only for servers**');
          
-  if(!message.guild.member(message.author).hasPermission("SEND_MESSAGES")) return message.reply("**You Don't Have ` BAN_MEMBERS ` Permission**");
-  if(!message.guild.member(client.user).hasPermission("SEND_MESSAGES")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
+  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**You Don't Have ` BAN_MEMBERS ` Permission**");
+  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
   let user = message.mentions.users.first();
   let reason = message.content.split(" ").slice(2).join(" ");
   /*let b5bzlog = client.channels.find("name", "5bz-log");
@@ -13353,7 +13353,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (msg.content === 'هلا') {
-    msg.channel.send('هلا ولله');
+    msg.channel.send('هلا فيك ');
   }
 });
 client.on('ready', () => {
@@ -13367,7 +13367,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === '.') {
-    msg.channel.send(' **__-Wèlçomè Ťø HÈRØ Śeŕveŕ__** ');
+    msg.channel.send(' **__-Wèlçomè Ťø LEGENDS~COMMUNITY__** ');
   }
 });
 
