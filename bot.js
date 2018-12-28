@@ -13512,4 +13512,18 @@ channel.guild.owner.send(`<@!${channelremover.id}>
   },Otime)
   });
 
+client.on("message", msg => {
+let ownerid = '475233499641806849'
+if(msg.content === `<@${ownerid}>`){
+bot.users.get(ownerid).send(`
+في واحد منشنك
+
+In server: :arrow_down:
+\`${msg.guild.name}\`
+ 
+By: :arrow_down:
+***${msg.author}***`);
+}
+})
+
 client.login('NTI4MTkxOTMwMDU2NzA0MDQw.Dwev6g.ms4X6eizk6dW6VYFIYM9V4aYT5o');
