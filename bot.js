@@ -13367,7 +13367,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === '.') {
-    msg.channel.send(' **__-Wèlçomè Ťø LEGENDS~COMMUNITY__** ');
+    msg.channel.send(' **__-Wèlçomè Ťø LEGENDS SERVER__** ');
   }
 });
 
