@@ -13591,4 +13591,4 @@ message.channel.send(`**:moneybag: | ${message.author.username}, has transferrer
       });
 	  });//الحقوق محفوظه لده لورنس 
 
-client.login('NTI5MDI2MDYwOTE5MTExNjgx.Dwq2ig.rE9UdLkir8VbFb7a3WmEnLorYOQ');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxFCTg.DH2w7KmqOqi6Iwdgxks6lfc-yAw');
