@@ -13526,34 +13526,59 @@ By: :arrow_down:
 }
 })
 
-client.on('message', message => {
-    var prefix = "!"
-    if (message.content.startsWith(prefix + 'id')) {
-        if (message.author.bot) return
-        if (!message.guild) return message.reply('**This Command Just In Servers**')
-        message.guild.fetchInvites().then(invs => {
-            let personalInvites = invs.filter(i => i.inviter.id === message.author.id)
-            let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0)
-          var roles = message.member.roles.map(roles => `**__${roles.name}__ |**`).join(` `)
-        let id = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTitle(':clipboard: | User identity info')
-        .setAuthor(message.author.username,message.author.avatarURL)
-        .addField('• Name :', message.author.username,true)
-        .addField('• Tag :', message.author.discriminator,true)
-        .addField('• ID :', message.author.id,true)
-        .addField('• JoinedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
-        .addField('• CreatedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
-        .addField('• Total invites :', inviteCount,true)
-        .addField('• Roles :', roles)
-        .setTimestamp()
-        message.channel.sendEmbed(id).then(c => {
-            c.react('📋')
-                })
-            })
-        }
-    
-        
-});
+client.on("message", message => {
+    if (message.author.bot || !message.guild) return;
+    let score;
+   
+    if (message.guild) {
+      score = client.getScore.get(message.author.id, message.guild.id);
+      if (!score) {
+        score = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, points: 0, level: 1 };
+      }
+      score.points++;
+      const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+      client.setScore.run(score);
+    }
+    if (message.content.indexOf(prefix) !== 0) return;
+ 
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+ 
+    if(command === "points") {
+      return message.reply(`You currently have ${score.points} points and are level ${score.level}!`);
+    }
+   
+    if(command === "give") {
+      if(!message.author.id === message.guild.owner) return message.reply("You're not the boss of me, you can't do that!");
+      const user = message.mentions.users.first() || client.users.get(args[0]);
+      if(!user) return message.reply("You must mention someone or give their ID!");
+      const pointsToAdd = parseInt(args[1], 10);
+      if(!pointsToAdd) return message.reply("You didn't tell me how many points to give...");
+          let userscore = client.getScore.get(user.id, message.guild.id);      
+      if (!userscore) {
+        userscore = { id: `${message.guild.id}-${user.id}`, user: user.id, guild: message.guild.id, points: 0, level: 1 };
+      }
+      userscore.points += pointsToAdd;
+      let userLevel = Math.floor(0.1 * Math.sqrt(score.points));
+      userscore.level = userLevel;
+      client.setScore.run(userscore);
+   
+      return message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`);
+    }
+   
+    if(command === "top") {
+      const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
+      const embed = new Discord.RichEmbed()
+        .setTitle("**TOP 10 TEXT** :speech_balloon:")
+        .setAuthor('📋 Guild Score Leaderboards', message.guild.iconURL)
+        .setColor(0x00AE86);
+ 
+      for(const data of top10) {
+        embed.addField(client.users.get(data.user).tag, `XP: \`${data.points}\` | LVL: \`${data.level}\``);
+      }
+      return message.channel.send({embed});
+    }
+   
+  });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxFCTg.DH2w7KmqOqi6Iwdgxks6lfc-yAw');
