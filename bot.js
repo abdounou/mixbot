@@ -13566,7 +13566,7 @@ client.on('guildMemberAdd', member => {
   });
 });
 client.on('message', message => {
-    var prefix = "$";
+    var prefix = "!";
     if(message.author.bot) return;
     var name1 = message.mentions.users.first();
     var reason = message.content.split(' ').slice(2).join(' ');
