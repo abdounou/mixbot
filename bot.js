@@ -43,7 +43,7 @@ client.on("message", message => {
 
 ***__وصف عن البوت__***
 **
- Legnds~System✨ 
+ ~System✨ 
 متعدد الميزات و الاوامر فيه اوامر جميله يحتوي هذا البوت على
 خاصيه قائمه الالوان و تقدر تغير لونك زي برو بوت و مانع الاسبام و الترحيب 
 بصوره
@@ -70,6 +70,7 @@ client.on("message", message => {
 『!colors /لعرض قائمة الألوان』
 『!perms / البرمشنات التي لديك』
 『!user /لمعرفةاليوزر تبعك』
+『!new /لأنشاء تذكرة』
 **
 
         ***__Bot orders__***
@@ -830,7 +831,7 @@ client.on("message", (message) => {
  .setThumbnail(client.user.avatarURL)     
  .setDescription("Add me" + `
  **
-رابط البوت | https://discordapp.com/api/oauth2/authorize?client_id=528191930056704040&permissions=0&scope=bot
+رابط البوت | https://discordapp.com/api/oauth2/authorize?client_id=529609535548162059&permissions=0&scope=bot
  **
 `);
   message.author.sendEmbed(embed);
@@ -847,7 +848,7 @@ client.on("message", (message) => {
  .setThumbnail(client.user.avatarURL)     
  .setDescription(" ***welcome To server support*** " + `
  **
-رابط السيرفر | https://discord.gg/UsSPXq8
+رابط السيرفر | https://discord.gg/MnHHgs
  **
 `);
   message.author.sendEmbed(embed);
@@ -1124,7 +1125,7 @@ client.on("guildCreate", guild => {
 });
 
 client.on('ready',  () => {
-  console.log('تم تشغيل :ZeroBot ✨  ');
+  console.log('تم تشغيل :  ~System✨   ');
   console.log(`Logged in as * [ " ${client.user.username} " ] servers! [ " ${client.guilds.size} " ]`);
   console.log(`Logged in as * [ " ${client.user.username} " ] Users! [ " ${client.users.size} " ]`);
   console.log(`Logged in as * [ " ${client.user.username} " ] channels! [ " ${client.channels.size} " ]`);
@@ -13367,7 +13368,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === '.') {
-    msg.channel.send(' **__-Wèlçomè Ťø LEGENDS SERVER__** ');
+    msg.channel.send(' **__-Wèlçomè Ťø OWER SERVER__** ');
   }
 });
 
