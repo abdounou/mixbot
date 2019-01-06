@@ -13527,32 +13527,33 @@ By: :arrow_down:
 })
 
 client.on('message', message => {
-           if (message.content.startsWith(prefix + "id")) {
-     var args = message.content.split(" ").slice(1);
-     let user = message.mentions.users.first();
-     var men = message.mentions.users.first();
-        var heg;
-        if(men) {
-            heg = men
-        } else {
-            heg = message.author
+    var prefix = "!"
+    if (message.content.startsWith(prefix + 'id')) {
+        if (message.author.bot) return
+        if (!message.guild) return message.reply('**This Command Just In Servers**')
+        message.guild.fetchInvites().then(invs => {
+            let personalInvites = invs.filter(i => i.inviter.id === message.author.id)
+            let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0)
+          var roles = message.member.roles.map(roles => `**__${roles.name}__ |**`).join(` `)
+        let id = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setTitle(':clipboard: | User identity info')
+        .setAuthor(message.author.username,message.author.avatarURL)
+        .addField('• Name :', message.author.username,true)
+        .addField('• Tag :', message.author.discriminator,true)
+        .addField('• ID :', message.author.id,true)
+        .addField('• JoinedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
+        .addField('• CreatedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
+        .addField('• Total invites :', inviteCount,true)
+        .addField('• Roles :', roles)
+        .setTimestamp()
+        message.channel.sendEmbed(id).then(c => {
+            c.react('📋')
+                })
+            })
         }
-      var mentionned = message.mentions.members.first();
-         var h;
-        if(mentionned) {
-            h = mentionned
-        } else {
-            h = message.member
-        }
-               moment.locale('ar-TN');
-      var id = new  Discord.RichEmbed()
-      .setAuthor(message.author.username, message.author.avatarURL)
-    .setColor("#707070")
-    .addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
-    .addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)              
-    .setFooter(`Last Bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                
-    .setThumbnail(heg.avatarURL);
-    message.channel.send(id)
-}       });
+   
+       
+});
 
-client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxFCTg.DH2w7KmqOqi6Iwdgxks6lfc-yAw');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxOHwg.qarBjMwdKAwbvL8QyFGb0NDate4');
