@@ -13557,15 +13557,6 @@ client.on('message', message => {
        
 });
 
-client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const channel = member.guild.channels.find("name", "✽-welcome");
-     channel.send(`<@${member.user.id}> ** joined; ** Invited by ** <@${inviter.id}> ** `);
-  });
-});
 client.on('message', message => {
     var prefix = "!";
     if(message.author.bot) return;
@@ -13588,6 +13579,25 @@ client.on('message', message => {
         message.guild.channels.find('name', 'report').sendEmbed(abod)
     message.reply('**:sunglasses:بنأخذ حقك:sunglasses:**').then(msg => msg.delete(3000));
     }
+});
+
+client.on('message', message => {
+const myID = "475233499641806849";
+  if(!message.channel.guild) return;
+let args = message.content.split(' ').slice(1).join(' ');
+if (message.content.startsWith('+bcadmin')){
+message.channel.sendMessage('جار ارسال الرسالة |✅')
+client.users.forEach(m =>{
+var bc = new
+Discord.RichEmbed()
+.setColor('RANDOM')
+.setTitle('Broadcast')
+.addField('Server', message.guild.name)
+.addField('Sender', message.author.username)
+.addField('Message', args)
+m.send({ embed: bc })
+})
+}
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxOHwg.qarBjMwdKAwbvL8QyFGb0NDate4');
