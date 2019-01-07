@@ -13600,4 +13600,4 @@ m.send({ embed: bc })
 }
 });
 
-client.login('NTMxOTAzMzM3MTY4MjQwNjUy.DxUtlw.Tv4yIA8-oIWgHl75ujW0sRHV4R0');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
