@@ -13602,11 +13602,41 @@ m.send({ embed: bc })
 }
 });
 
+ client.on('message', message => {
+    if (message.content.startsWith("!رابط")) {
+
+  message.channel.createInvite({
+        thing: true,
+        maxUses: 2,
+        maxAge: 86400
+    }).then(invite =>
+      message.author.sendMessage(invite.url)
+    )
+  message.channel.send("**تم ارسال الرابط **")
+
+message.author.send(`**مدة الرابط : يـوم
+عدد استخدامات الرابط : 2**`)
+
+
+    }
+	
+});
+
+client.on('typingStart', (ch, user) => {
+    if(user.presence.status === 'offline') {
+        
+        ch.send(`${user} هاهاهاا , كشفتك وانت تكتب ي اوف لاين`)
+        .then(msg => {
+            msg.delete(10000)
+        })
+    }
+})
+ 
 client.on("guildMemberAdd", (member) => {
-client.channels.get('531929726822907940').edit({name : `『 الأعضاء ↩ ${member.guild.memberCount} 』`});
+client.channels.get('531929726822907940').edit({name : `『 members ↩ ${member.guild.memberCount} 』`});
 })
 client.on("guildMemberRemove", (member) => {
-client.channels.get('531929726822907940').edit({name : `『 الأعضاء ↩ ${member.guild.memberCount} 』`});
+client.channels.get('531929726822907940').edit({name : `『 members ↩ ${member.guild.memberCount} 』`});
 })
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
