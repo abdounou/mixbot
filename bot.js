@@ -13639,4 +13639,13 @@ client.on("guildMemberRemove", (member) => {
 client.channels.get('531929726822907940').edit({name : `『 members ↩ ${member.guild.memberCount} 』`});
 })
 
+client.on('message', message => {
+    var args = message.content.split(/[ ]+/)
+    if(message.content.includes('discord.gg')){
+      if(!message.member.hasPermission('ADMINISTRATOR'))
+        message.delete()
+    return message.reply(`** يمنع نشر الروابط ! **`)
+    }
+});
+
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
