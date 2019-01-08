@@ -99,6 +99,7 @@ client.on("message", message => {
 『!ct /انشاء روم كتابي』4
 『!cv /انشاء روم صوتي』
 『!bc /برودكاست』
+『log /إنشاء روم وتسميتها **log**』
 **
 
 
@@ -13599,5 +13600,12 @@ m.send({ embed: bc })
 })
 }
 });
+
+client.on("guildMemberAdd", (member) => {
+client.channels.get('531929726822907940').edit({name : `『 الأعضاء ↩ ${member.guild.memberCount} 』`});
+})
+client.on("guildMemberRemove", (member) => {
+client.channels.get('531929726822907940').edit({name : `『 الأعضاء ↩ ${member.guild.memberCount} 』`});
+})
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
