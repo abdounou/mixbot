@@ -13905,6 +13905,7 @@ client.on('guildMemberAdd', member => {
     .setImage('https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg')
 var channel =member.guild.channels.find('name', 'chat')
 if (!channel) return;
+channel.send({embed : embed});	
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
