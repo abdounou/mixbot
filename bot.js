@@ -13903,7 +13903,7 @@ client.on('guildMemberAdd', member => {
     .setDescription('***بكل حب واحترام وشوق نستقبلك ونتمنى لك قضآء أجمل اللحظات ولآوقات معنا***')
     .setColor('RANDOM')
     .setImage('https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg')
-var channel =member.guild.channels.find('name', 'chat-arabjoker')
+var channel =member.guild.channels.find('name', 'chat')
 if (!channel) return;
 });
 
