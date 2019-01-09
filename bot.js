@@ -13379,7 +13379,7 @@ client.on('message', msg => {
 });
 client.on('message', msg => {
   if (msg.content === '.') {
-    msg.channel.send(' **__-Wèlçomè Ťø OWER SERVER__** ');
+    msg.channel.send(' https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg ');
   }
 });
 
