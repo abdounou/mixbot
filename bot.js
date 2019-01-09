@@ -13897,18 +13897,6 @@ ${prefix}queue ⇏ لمعرفة قآئمة التشغيل
    }); 
 
 client.on('guildMemberAdd', member => {
-    var embed = new Discord.RichEmbed()
-    .setThumbnail(member.user.avatarURL)
-  .addField("***شكرا الانضمامك الينا***" ,member.user.username )
-    .setDescription('***بكل حب واحترام وشوق نستقبلك ونتمنى لك قضآء أجمل اللحظات ولآوقات معنا***')
-    .setColor('RANDOM')
-    .setImage('https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg')
-var channel =member.guild.channels.find('name', 'chat')
-if (!channel) return;
-channel.send({embed : embed});
-});
-
-client.on('guildMemberAdd', member => {
   member.guild.fetchInvites().then(guildInvites => {
     const ei = invites[member.guild.id];
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
