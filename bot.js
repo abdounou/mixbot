@@ -13897,13 +13897,14 @@ ${prefix}queue ⇏ لمعرفة قآئمة التشغيل
    }); 
 
 client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const xkiller = member.guild.channels.find("name", "chat");
-     xkiller.send(`<@${member.user.id}> تمت الدعوه من <@${inviter.id}>`);
-  });
+    var embed = new Discord.RichEmbed()
+    .setThumbnail(member.user.avatarURL)
+  .addField("***شكرا الانضمامك الينا***" ,member.user.username )
+    .setDescription('***بكل حب واحترام وشوق نستقبلك ونتمنى لك قضآء أجمل اللحظات ولآوقات معنا***')
+    .setColor('RANDOM')
+    .setImage('https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg')
+var channel =member.guild.channels.find('name', 'chat-arabjoker')
+if (!channel) return;
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
