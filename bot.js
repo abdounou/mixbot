@@ -13899,7 +13899,7 @@ client.on('guildMemberAdd', member => {
 });
 
 client.on('message', message => {
-    if (message.content.startsWith("رابط")) {
+    if (message.content.startsWith("!رابط")) {
  
   message.channel.createInvite({
         thing: true,
