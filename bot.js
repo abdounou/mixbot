@@ -13611,26 +13611,6 @@ m.send({ embed: bc })
 }
 });
 
- client.on('message', message => {
-    if (message.content.startsWith("!رابط")) {
-
-  message.channel.createInvite({
-        thing: true,
-        maxUses: 2,
-        maxAge: 86400
-    }).then(invite =>
-      message.author.sendMessage(invite.url)
-    )
-  message.channel.send("**تم ارسال الرابط **")
-
-message.author.send(`**مدة الرابط : يـوم
-عدد استخدامات الرابط : 2**`)
-
-
-    }
-	
-});
-
 client.on('typingStart', (ch, user) => {
     if(user.presence.status === 'offline') {
         
@@ -13916,6 +13896,37 @@ client.on('guildMemberAdd', member => {
     const channel = member.guild.channels.find("name", "chat");
      channel.send(`<@${member.user.id}> ** joined; ** Invited by ** <@${inviter.id}> ** `);
   });
+});
+
+client.on('message', message => {
+    if (message.content.startsWith("رابط")) {
+ 
+  message.channel.createInvite({
+        thing: true,
+        maxUses: 100,
+        maxAge: 86400
+    }).then(invite =>
+      message.author.sendMessage(invite.url)
+    )
+    const embed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setDescription("| :white_check_mark:  | :heart:  تم ارسال الرابط على الخاص  ")
+      message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
+              const Embed11 = new Discord.RichEmbed()
+        .setColor("RANDOM")
+                .setAuthor(message.guild.name, message.guild.iconURL)
+        .setDescription(`
+**
+---------------------
+-[${message.guild.name}]  هذا هو رابط سيرفر
+---------------------
+-هذا الرابط صالح ل 100 مستخدم فقط
+---------------------
+-هذا الرابط صالح لمده 24 ساعه فقط
+---------------------
+**`)
+      message.author.sendEmbed(Embed11)
+    }
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
