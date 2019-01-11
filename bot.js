@@ -90,7 +90,7 @@ client.on("message", message => {
 『!kick / كيك』
 『!ban / بان』
 『!mute /ميوت』
-『!unmute /فك الميوت』
+『!unmute /فك الميوت』 
 『!mutechannel /قفل الشات』
 『!unmutechannel /فتح الشات』
 『!add.r / اضافه رتبه』
@@ -99,7 +99,7 @@ client.on("message", message => {
 『!color 100/انشاء 100 لون』
 『!color 140/انشاء 140 لوم』
 『!colors /لإضهار قاءمة الألوان』
-『!ct /انشاء روم كتابي』4
+『!ct / إنشاء روم كتابي』
 『!cv /انشاء روم صوتي』
 『!bc /برودكاست』
 『log /إنشاء روم وتسميتها **log**』
