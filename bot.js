@@ -7,6 +7,23 @@ client.on('ready', () => {
 
 //الاوامر//
 
+client.on("message", message => {
+    if(message.content.startsWith(prefix + 'help')) {
+        message.delete(5000)
+        if(!message.channel.guild) return;
+        const e = new Discord.RichEmbed()
+        .setColor('#36393e')
+        .setDescription(`**تم الارسال في الخاص**📬`)
+     const embed = new Discord.RichEmbed()
+         .setColor('#36393e')
+         .setTitle('Click To Join Support Server')
+         .setURL('')
+         .setDescription(``)
+   message.channel.send(e).then(m => m.delete(5000))
+   message.author.sendEmbed(embed).catch(error => message.reply('**خاصك مقفول**🔐'))
+   
+   }
+   });
 
 client.on("message", message => {
  if (message.content === "!help") {
@@ -1103,7 +1120,7 @@ client.on("message", message => {
   
 client.on('message', message => {
 
-if (message.content.startsWith("f!add.r")) {
+if (message.content.startsWith("!add.r")) {
              if(!message.channel.guild) return message.reply('**Commands in the server**');
         if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply('⚠ **You do not have permissions**');
         let args = message.content.split(" ").slice(1);
