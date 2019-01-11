@@ -13938,40 +13938,41 @@ client.on("message", (message) => {
         }))
     }
 })
-const adminprefix = "!";
+
+
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!devs.includes(message.author.id)) return;
      
-  if (message.content.startsWith(adminprefix + 'pt')) {
+  if (message.content.startsWith(prefix+'pt')) {
     client.user.setGame(argresult);
       message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
   } else
-    if (message.content === (adminprefix + "Percie")) {
+    if (message.content === (prefix+"Percie")) {
     message.guild.leave();        
   } else  
-  if (message.content.startsWith(adminprefix + 'wt')) {
+  if (message.content.startsWith(prefix+'wt')) {
   client.user.setActivity(argresult, {type:'WATCHING'});
       message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
   } else
-  if (message.content.startsWith(adminprefix + 'ls')) {
+  if (message.content.startsWith(prefix+'ls')) {
   client.user.setActivity(argresult , {type:'LISTENING'});
       message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
   } else     //Narox
-    if (message.content.startsWith(adminprefix + 'setname')) {
+    if (message.content.startsWith(prefix +'setname')) {
   client.user.setUsername(argresult).then
       message.channel.sendMessage(`**${argresult}** : Done `)
   return message.reply("**Name Changed :white_check_mark:**");
   } else
-    if (message.content.startsWith(adminprefix + 'setavatar')) {
+    if (message.content.startsWith(prefix+'setavatar')) {
   client.user.setAvatar(argresult);
     message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
         } else    
-  if (message.content.startsWith(adminprefix + 'st')) {
+  if (message.content.startsWith(prefix+'st')) {
     client.user.setGame(argresult, "https://www.twitch.tv/idk");
       message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
   }
-    if(message.content === prefix + "restart") {
+    if(message.content === prefix+"restart") {
       if (!devs.includes(message.author.id)) return;
           message.channel.send(`:warning:️ **Bot restarting by ${message.author.username}**`);
         console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
