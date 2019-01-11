@@ -13940,4 +13940,4 @@ client.on("message", (message) => {
     }
 })
 
-client.login('NTMxOTAzMzM3MTY4MjQwNjUy.DxqJeA.qFRAda2aWhjiXwLulXJ1Pdk8Ecs');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxqMfA.PyaiGAzn4ulux1AUXITnBwU-44w');
