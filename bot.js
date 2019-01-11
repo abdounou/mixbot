@@ -13939,8 +13939,6 @@ client.on("message", (message) => {
     }
 })
 
-const devs = ["475233499641806849"]
-
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!devs.includes(message.author.id)) return;
