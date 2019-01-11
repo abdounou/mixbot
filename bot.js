@@ -72,6 +72,7 @@ client.on("message", message => {
 『!user / لمعرفةاليوزر تبعك』
 『!new /لأنشاء تذكرة』
 『!gmail / لأخذ إيميل وهمي』
+『!draw /للكتابة في شكل صورة 』
 **
 
         ***__Bot orders__***
