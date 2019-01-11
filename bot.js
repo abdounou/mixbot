@@ -13921,51 +13921,40 @@ client.on("message", (message) => {
     }
 })
 
-      var prefix = "!"
+const devs = ["475233499641806849"];
+const adminprefix = ["!"];
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!devs.includes(message.author.id)) return;
-     
-  if (message.content.startsWith(prefix+'pt')) {
+      
+  if (message.content.startsWith('(prefix))pl')) {
     client.user.setGame(argresult);
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else
-    if (message.content === (prefix+"Percie")) {
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+     if (message.content === ("leave")) {
     message.guild.leave();        
   } else  
-  if (message.content.startsWith(prefix+'wt')) {
+  if (message.content.startsWith('(prefix)wt')) {
   client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else
-  if (message.content.startsWith(prefix+'ls')) {
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith('mils')) {
   client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
-  } else     //Narox
-    if (message.content.startsWith(prefix +'setname')) {
-  client.user.setUsername(argresult).then
-      message.channel.sendMessage(`**${argresult}** : Done `)
-  return message.reply("**Name Changed :white_check_mark:**");
-  } else
-    if (message.content.startsWith(prefix+'setavatar')) {
-  client.user.setAvatar(argresult);
-    message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
-        } else    
-  if (message.content.startsWith(prefix+'st')) {
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith('(prefix)st')) {
     client.user.setGame(argresult, "https://www.twitch.tv/idk");
-      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
+      message.channel.send(`**✅**`)
   }
-    if(message.content === prefix+"restart") {
-      if (!devs.includes(message.author.id)) return;
-          message.channel.send(`:warning:️ **Bot restarting by ${message.author.username}**`);
-        console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        console.log(`⚠️ Bot restarting... ⚠️`);
-        console.log("===============================================\n\n");
-        client.destroy();
-        child_process.fork(__dirname + "/bot.js");
-        console.log(`Bot Successfully Restarted`);
-    }
- 
-  });
+  if (message.content.startsWith('(prefix)setname')) {
+  client.user.setUsername(argresult).then
+      message.channel.send(`Changing The Name To ..**${argresult}** `)
+} else
+if (message.content.startsWith('(prefix)setavatar')) {
+  client.user.setAvatar(argresult);
+    message.channel.send(`Changing The Avatar To :**${argresult}** `);
+}
+});
 
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxUvbA.t7-eq0Ot-LSR5SlwrzXtG3mXWj8');
