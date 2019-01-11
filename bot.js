@@ -13944,7 +13944,7 @@ client.on('message', message => {
     if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('*bcallserver')){
-if(!message.author.id === 'ايدي حسابك مو حساب بوت') return;
+if(!message.author.id === '475233499641806849') return;
 message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
 client.users.forEach(m =>{
 m.sendMessage(args)
