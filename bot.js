@@ -14109,4 +14109,4 @@ function play(guild, song) {
 }
 });
 
-client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxqMfA.PyaiGAzn4ulux1AUXITnBwU-44w');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxvpgQ.MN0GgMXkrxFVfAVwiKdVffqi4Co');
