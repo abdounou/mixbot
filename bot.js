@@ -13809,8 +13809,9 @@ const fetchVideoInfo = require('youtube-info');
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");//youtube api key
 const queue = new Map();//the queue map
-const prefix = '!'
 
+
+var prefix = "!"
 client.on('ready', () => {//the ready msgs
     console.log(`Logged in as ${client.user.tag}!`);
     console.log(`in ${client.guilds.size} servers `)
