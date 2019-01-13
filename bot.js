@@ -14122,7 +14122,7 @@ client.on('guildMemberAdd', member => {
     .addField(' 👤  انت رقم',`**[ ${member.guild.memberCount} ]**`,true)
     .setColor('RANDOM')
     .setFooter(member.guild.name, member.guild.iconURL, true)
-    var channel =member.guild.channels.find('【welcome-الترحيب】', 'welcome') // هنا حط اسم الروم الي تبيه يكتب فيه
+    var channel =member.guild.channels.find('name', 'welcome') // هنا حط اسم الروم الي تبيه يكتب فيه
     if (!channel) return;
     channel.send({embed : embed});
     });
