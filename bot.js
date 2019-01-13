@@ -13724,18 +13724,6 @@ m.sendMessage(args)
 }
 });
 
-client.on("message", message => {
-if(message.content.startsWith("!restart")){
- try {
-        delete require.cache[require.resolve('./bot.js')];
-    } catch(e) {
-        return message.channel.send(` لم اقدر على رسترت الملف`);
-    }
-
-    return message.channel.send(`تمت الرسترة بنجاح`);
-}
-});
-
 const devs = ["475233499641806849"]
  
 const adminprefix = "!";//Narox
