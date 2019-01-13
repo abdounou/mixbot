@@ -14097,4 +14097,16 @@ function play(guild, song) {
 }
 });
 
+client.on("message", message => {
+if(message.content.startsWith("!restart")){
+ try {
+        delete require.cache[require.resolve('./bot.js')];
+    } catch(e) {
+        return message.channel.send(` لم اقدر على رسترت الملف`);
+    }
+
+    return message.channel.send(`تمت الرسترة بنجاح`);
+}
+});
+
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA');
