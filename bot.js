@@ -14109,4 +14109,22 @@ function play(guild, song) {
 }
 });
 
+client.on('guildMemberAdd', member => {
+    var embed = new Discord.RichEmbed()
+    .setAuthor(member.user.username, member.user.avatarURL)
+    .setThumbnail(member.user.avatarURL)
+    .setImage('http://live-timely-4jepdssgmc.time.ly/wp-content/uploads/2018/08/welcomeEvents.jpg') //هنا حط الصوره الي تبيها
+    .setTitle('عضو جديد!')
+    .setDescription('مرحبا بك بالسيرفر')
+    .addField('``ايدي العضو``:',"" +  member.user.id, true)
+    .addField('``تاق العضو``', member.user.discriminator, true)
+    .addField('``تم الانشاء في``', member.user.createdAt, true)
+    .addField(' 👤  انت رقم',`**[ ${member.guild.memberCount} ]**`,true)
+    .setColor('RANDOM')
+    .setFooter(member.guild.name, member.guild.iconURL, true)
+    var channel =member.guild.channels.find('【welcome-الترحيب】', 'welcome') // هنا حط اسم الروم الي تبيه يكتب فيه
+    if (!channel) return;
+    channel.send({embed : embed});
+    });
+
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxvpgQ.MN0GgMXkrxFVfAVwiKdVffqi4Co');
