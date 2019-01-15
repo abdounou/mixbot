@@ -13297,7 +13297,7 @@ hours = 12;
                        .setTitle(title)
                        .addField('Giveaway Ended !🎉',`Winners : ${gFilter} \nEnded at :`)
                        .setTimestamp()
-                     m.edit('** 🎉 GIVEAWAY ENDED 🎉**' , {embed: endEmbed});
+                     m.edit('** 🎉 GIVE AWAY ENDED 🎉**' , {embed: endEmbed});
                     message.guild.channels.find("name" , room).send(`**Congratulations ${gFilter}! You won The \`${title}\`**` , {embed: {}})
                 }, ms(duration));
             });
@@ -13616,7 +13616,7 @@ client.on('message', message => {
 const myID = "475233499641806849";
   if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('+bcadmin')){
+if (message.content.startsWith('!bcadmin')){
 message.channel.sendMessage('جار ارسال الرسالة |✅')
 client.users.forEach(m =>{
 var bc = new
@@ -13662,15 +13662,6 @@ if (!channel) return;
 channel.send({embed : embed});
 });
 
-client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const channel = member.guild.channels.find("name", "chat");
-     channel.send(`<@${member.user.id}> ** joined; ** Invited by ** <@${inviter.id}> ** `);
-  });
-});
 
 client.on('message', message => {
     if (message.content.startsWith("!رابط")) {
@@ -13712,17 +13703,6 @@ client.on("message", (message) => {
     }
 })
 
-client.on('message', message => {
-    if(!message.channel.guild) return;
-let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('!bcall')){
-if(!message.author.id === '475233499641806849') return;
-message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
-client.users.forEach(m =>{
-m.sendMessage(args)
-})
-}
-});
 
 const devs = ["475233499641806849"]
  
