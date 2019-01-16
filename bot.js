@@ -14159,6 +14159,5 @@ client.on('guildMemberAdd', member => {
  
       })
       })
-      });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA');
