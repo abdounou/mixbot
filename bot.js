@@ -14099,9 +14099,7 @@ client.on('guildMemberAdd', member => {
          .setFooter(`${m.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
      welcomer.send({embed:yumz});          
          
-        client.on('guildMemberAdd', member => {
-      const welcomer =  member.guild.channels.find('name', 'welcome');//اسم الروم الي يرحب فيه
- 
+      
       const w = ['./w1.png',
       './w2.png',
       './w3.png',
