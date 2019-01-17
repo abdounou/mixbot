@@ -14143,30 +14143,33 @@ welcomer.sendFile(canvas.toBuffer())
  }
 });
 
-const arraySort = require('array-sort'),
-      table = require('table');
-
-client.on('message' , async (message) => {
-
-    if(message.content.startsWith(prefix + "topinvite")) {
-
-  let invites = await message.guild.fetchInvites();
-
-    invites = invites.array();
-
-    arraySort(invites, 'uses', { reverse: true });
-
-    let possibleInvites = [['User', 'Uses']];
-    invites.forEach(i => {
-      possibleInvites.push([i.inviter.username , i.uses]);
-    })
-    const embed = new Discord.RichEmbed()
-    .setColor(0x7289da)
-    .setTitle("دعوات السيرفر")
-    .addField(' المتصدرين' , `\`\`\`${table.table(possibleInvites)}\`\`\``)
-
-    message.channel.send(embed)
-    }
+client.on("message", message => {
+    var prefix = "!";// البرفكس
+if(message.content.startsWith(prefix + "setwlc")) {
+    let args = message.mentions.channels.first();
+        if(!args) message.channel.send("** منشن روم . :x:**").then(m => {    
+m.delete(1500);
+})
+            if(!message.guild.member(message.author.id).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**ليس لديك صلاحيات . :x:**");
+                    message.channel.send(`**${args}. لقد تم شغل الروم هذا للترحيب.**`);
+                client.on("guildMemberAdd", (member) => {
+                        if(member.user.bot) return;
+                     var embed = new Discord.RichEmbed()
+.setAuthor(member.user.username, member.user.avatarURL)
+.setThumbnail(member.user.avatarURL)
+.setTitle('New Member')
+.setDescription(`Welcome To Server : [ ${message.guild.name} ]`)
+.addField("**اسم العضو** :", `${message.author.tag}`, true)
+.addField('**ايدي العضو** :',"" +  member.user.id, true)
+.addField('**تاج العضو** :', member.user.discriminator, true)
+.addField('**صنع الحساب منذ** :',member.user.createdAt, true)
+.addField('**انت العضو رقم**',`**[ ${member.guild.memberCount} ]**`,true)
+.setColor('GREEN')
+.setFooter(member.guild.name, member.guild.iconURL, true)
+                     
+args.send({embed : embed});
+                });
+}
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA');
