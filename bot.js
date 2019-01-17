@@ -13387,11 +13387,6 @@ client.on('message', msg => {
     msg.channel.send('وعليكم السلام');
   }
 });
-client.on('message', msg => {
-  if (msg.content === '.') {
-    msg.channel.send(' https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg ');
-  }
-});
 
 client.on("message", message => {
 	var prefix = "!";
@@ -13639,19 +13634,6 @@ client.on('message', message => {
     return message.reply(`** يمنع نشر الروابط ! **`)
     }
 });
-
-client.on('guildMemberAdd', member => {
-    var embed = new Discord.RichEmbed()
-    .setThumbnail(member.user.avatarURL)
-  .addField("***شكرا الانضمامك الينا***" ,member.user.username )
-    .setDescription('***بكل حب واحترام وشوق نستقبلك ونتمنى لك قضآء أجمل اللحظات ولآوقات معنا***')
-    .setColor('RANDOM')
-    .setImage('https://cdn.discordapp.com/attachments/486250425817890821/487718238839504917/images.jpg')
-var channel =member.guild.channels.find('name', 'chat')
-if (!channel) return;
-channel.send({embed : embed});
-});
-
 
 client.on('message', message => {
     if (message.content.startsWith("!رابط")) {
@@ -14159,6 +14141,16 @@ welcomer.sendFile(canvas.toBuffer())
 })
       });                    
  }
+});
+
+client.on('guildMemberAdd', member => {
+  member.guild.fetchInvites().then(guildInvites => {
+    const ei = invites[member.guild.id];
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+    const inviter = client.users.get(invite.inviter.id);
+    const channel = member.guild.channels.find("name", "welcome");
+     channel.send(`<@${member.user.id}> ** joined; ** Invited by ** <@${inviter.id}> ** `);
+  });
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA');
