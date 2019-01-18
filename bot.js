@@ -13715,7 +13715,6 @@ client.on('message', message => {
         console.log(`⚠️ Bot restarting... ⚠️`);
         console.log("===============================================\n\n");
  
-  });
 
 client.on("message", message => {
     var prefix = "!"
