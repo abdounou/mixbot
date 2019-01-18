@@ -14065,7 +14065,7 @@ if(message.content.startsWith("!restart")){
 
 client.on('guildMemberAdd', member => {
 
-     const welcomer =  member.guild.channels.find('name', 'welcome');
+     const welcomer =  member.guild.channels.find('name', 'chat');
     if(!welcomer) return;
       if(welcomer) {
          moment.locale('ar-ly');
