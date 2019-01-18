@@ -14146,7 +14146,7 @@ welcomer.sendFile(canvas.toBuffer())
 
 const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
 const as = require('array-sort');
-const config = { prefix: "!", token: "NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA" };
+const config = { prefix: "!", token: "NTI5NjA5NTM1NTQ4MTYyMDU5.DyOkFQ.1-exkBVrlY7O803u4BOBwCpTTiY" };
 const tpoints = {};
 const vpoints = {};
 hero.config = config;
@@ -14390,4 +14390,4 @@ message.channel.sendFile(canvas.toBuffer())
 })
 
 
-client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOkFQ.1-exkBVrlY7O803u4BOBwCpTTiY');
