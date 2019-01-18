@@ -14150,7 +14150,6 @@ const vpoints = {};
 hero.config = config;
 hero.login(hero.config.token);
 hero.on('ready',async () => {
-  console.log(`.Codes TOP.`);
   hero.users.forEach(m => {
     if(m.bot) return;
     if(!tpoints[m.id]) tpoints[m.id] = {points: 0, id: m.id};
