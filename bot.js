@@ -13669,6 +13669,21 @@ client.on("message", (message) => {
 })
 
 
+
+ 
+
+client.on("message", message => {
+    var prefix = "!"
+    if (!message.content.startsWith(prefix)) return;
+      let command = message.content.split(" ")[0];
+      command = command.slice(prefix.length);
+        if(command === "skin") {
+                const args = message.content.split(" ").slice(1).join(" ")
+        if (!args) return message.channel.send("**اكتب اسم السكن الي تبيه**");
+        const image = new Discord.Attachment(`https://minotar.net/armor/body/${args}`, "skin.png");
+    message.channel.send(image)
+        }
+    });
 const devs = ["475233499641806849"]
  
 const adminprefix = "!";//Narox
@@ -13714,21 +13729,12 @@ client.on('message', message => {
         console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         console.log(`⚠️ Bot restarting... ⚠️`);
         console.log("===============================================\n\n");
-	    });
+        client.destroy();
+        child_process.fork(__dirname + "/bot.js");
+        console.log(`Bot Successfully Restarted`);
+    }
  
-
-client.on("message", message => {
-    var prefix = "!"
-    if (!message.content.startsWith(prefix)) return;
-      let command = message.content.split(" ")[0];
-      command = command.slice(prefix.length);
-        if(command === "skin") {
-                const args = message.content.split(" ").slice(1).join(" ")
-        if (!args) return message.channel.send("**اكتب اسم السكن الي تبيه**");
-        const image = new Discord.Attachment(`https://minotar.net/armor/body/${args}`, "skin.png");
-    message.channel.send(image)
-        }
-    });
+  });
 
 const moment = require('moment')
 const ytdl = require("ytdl-core");
@@ -14037,20 +14043,6 @@ function play(guild, song) {
 })
 }
 });
-
-client.on("message", message => {
-if(message.content.startsWith("!restart")){
- try {
-        delete require.cache[require.resolve('./bot.js')];
-    } catch(e) {
-        return message.channel.send(` لم اقدر على رسترت الملف`);
-    }
-
-    return message.channel.send(`تمت الرسترة بنجاح`);
-}
-});
-
-
 
 const fs = require('fs');
 const jimp = require('jimp');
