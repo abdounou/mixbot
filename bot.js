@@ -14221,7 +14221,6 @@ var jimp = require('jimp')
 
         const millis = new Date().getTime() - defineduser.createdAt.getTime();
 const now = new Date();
-dateFormat(now, 'dddd, mmmm dS, yyyy');
 const stats2 = ['online', 'Low', 'Medium', 'Insane'];
 const days = millis / 1000 / 60 / 60 / 24;
          dateFormat(now, 'dddd, mmmm dS, yyyy');
