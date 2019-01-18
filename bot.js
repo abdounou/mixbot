@@ -13714,6 +13714,7 @@ client.on('message', message => {
         console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         console.log(`⚠️ Bot restarting... ⚠️`);
         console.log("===============================================\n\n");
+	    });
  
 
 client.on("message", message => {
