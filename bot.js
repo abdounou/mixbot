@@ -14063,11 +14063,8 @@ if(message.content.startsWith("!restart")){
 });
 
 
-const fs = require('fs');
-const jimp = require('jimp');
-const Canvas = require('canvas');
- 
 client.on('guildMemberAdd', member => {
+
      const welcomer =  member.guild.channels.find('name', 'welcome');
     if(!welcomer) return;
       if(welcomer) {
@@ -14078,16 +14075,16 @@ client.on('guildMemberAdd', member => {
         .setThumbnail(m.avatarURL)
         .setAuthor(m.username,m.avatarURL)
         .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
-     
+      
          .setFooter(`${m.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
      welcomer.send({embed:yumz});          
          
-   
- 
- 
- 
+    
+
+
+
 const w = ['./img/w1.png'];
- 
+
          let Image = Canvas.Image,
             canvas = new Canvas(400, 200),
             ctx = canvas.getContext('2d');
@@ -14098,20 +14095,20 @@ const w = ['./img/w1.png'];
             ground.src = Background;
             ctx.drawImage(ground, 0, 0, 400, 200);
              
-         
- 
+          
+
                 let url = member.user.displayAvatarURL.endsWith(".webp") ? member.user.displayAvatarURL.slice(100) + ".png" : member.user.displayAvatarURL;
                 jimp.read(url, (err, ava) => {
                     if (err) return console.log(err);
                     ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
                         if (err) return console.log(err);
-                       
+                        
                         ctx.font = "bold 12px Arial";
                         ctx.fontSize = '20px';
                         ctx.fillStyle = "#f1f1f1";
                         ctx.textAlign = "center";
                         ctx.fillText(`welcome to ${member.guild.name}`, 300, 130);
-                       
+                        
                         ctx.font = "bold 12px Arial";
                         ctx.fontSize = '20px';
                         ctx.fillStyle = "#f1f1f1";
@@ -14126,19 +14123,19 @@ const w = ['./img/w1.png'];
                               ctx.stroke();
                                  ctx.clip();
                                  ctx.drawImage(ava, 13, 38, 128, 126);  
-                         
-               
+                          
+                
                              
 welcomer.sendFile(canvas.toBuffer())
- 
- 
- 
-     
-     
+
+
+
+      
+      
                     }  )  
-     
-                   
- 
+      
+                    
+
 })
       });                    
  }
@@ -14146,7 +14143,7 @@ welcomer.sendFile(canvas.toBuffer())
 
 const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
 const as = require('array-sort');
-const config = { prefix: "!", token: "NTI5NjA5NTM1NTQ4MTYyMDU5.DyOkFQ.1-exkBVrlY7O803u4BOBwCpTTiY" };
+const config = { prefix: "!", token: "NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek" };
 const tpoints = {};
 const vpoints = {};
 hero.config = config;
@@ -14200,191 +14197,4 @@ hero.on('voiceStateUpdate', (u, member) => {
   }, 5000); // 5 Secs
 });
 
-client.on('message', message => {
-    
-if(message.content.split(' ')[0] == '!profile') {
-if(!message.channel.guild) return;
-
-let args = message.content.split(' ').slice(1).join(' ');
-
-       let defineduser = '';
-       if (!args[1]) { 
-           defineduser = message.author;
-       } else { // Run this if they did define someone...
-           let firstMentioned = message.mentions.users.first();
-           defineduser = firstMentioned;
-       }
-
-       const w = ['./id5.png','./id6.png'];
-       var Canvas = require('canvas')
-var jimp = require('jimp')
-
-        const millis = new Date().getTime() - defineduser.createdAt.getTime();
-const now = new Date();
-const stats2 = ['online', 'Low', 'Medium', 'Insane'];
-const days = millis / 1000 / 60 / 60 / 24;
-             var heg;
-             if(men) {
-                 heg = men
-             } else {
-                 heg = message.author
-             }
-            var mentionned = message.mentions.members.first();
-              var h;
-             if(mentionned) {
-                 h = mentionned
-             } else {
-                 h = message.member
-             }
-       let Image = Canvas.Image,
-           canvas = new Canvas(300, 300),
-           ctx = canvas.getContext('2d');
-       ctx.patternQuality = 'bilinear';
-       ctx.filter = 'bilinear';
-       ctx.antialias = 'subpixel';
- 
-       fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
-           if (err) return console.log(err);
-           let BG = Canvas.Image;
-           let ground = new Image;
-           ground.src = Background;
-           ctx.drawImage(ground, 0, 0, 300, 300);
-
-})
-  var mentionned = message.mentions.users.first();
-
-   var client;
-     if(mentionned){
-         var client = mentionned;
-     } else {
-         var client = message.author;
-         
-     }
-
-var men = message.mentions.users.first();
-           var heg;
-           if(men) {
-               heg = men
-           } else {
-               heg = message.author
-           }
-               let url = defineduser.displayAvatarURL.endsWith(".webp") ? defineduser.displayAvatarURL.slice(20, 20) + ".png" : defineduser.displayAvatarURL;
-               jimp.read(url, (err, ava) => {
-                   if (err) return console.log(err);
-                   ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
-                       if (err) return console.log(err);
-
-                       let Avatar = Canvas.Image;
-                       let ava = new Avatar;
-                       ava.src = buf;
-                       ctx.drawImage(ava, 112 , 40, 75, 75);
-                       
-                       
-                       
-                       
-                       var status;
-   if (defineduser.presence.status === 'online') {
-       status = 'ONLINE';
-ctx.fillStyle = `#2ce032`;
-ctx.beginPath();
-ctx.arc(179, 107, 10, 0, Math.PI*2, true); 
-ctx.closePath();
-ctx.fill();
- 
-   } else if (defineduser.presence.status === 'dnd') {
-       status = 'DND';
-       ctx.fillStyle = `#ff0000`;
-ctx.beginPath();
-ctx.arc(179, 107, 8, 0, Math.PI*2, true); 
-ctx.closePath();
-ctx.fill();
-   } else if (defineduser.presence.status === 'idle') {
-       status = 'IDLE';
-       ctx.fillStyle = `#f4d32e`;
-ctx.beginPath();
-ctx.arc(179, 107, 10, 0, Math.PI*2, true); 
-ctx.closePath();
-ctx.fill();
-   } else if (defineduser.presence.status === 'offline') {
-       status = 'INVISIABLE';
-       ctx.fillStyle = `#898988`;
-ctx.beginPath();
-ctx.arc(179, 107, 10, 0, Math.PI*2, true); 
-ctx.closePath();
-ctx.fill();
-   }
-                       
-                       
-                                             var time2;
-     if(mentionned){
-         var time2 = `${dateFormat(message.mentions.users.first.joinedAt)}`;
-     } else {
-         var time2 = `${dateFormat(message.member.joinedAt)}`;
-         
-     }  
-                          
-   
-                       ctx.font = 'Bold 15px Arial ';
-                       ctx.fontSize = '15px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(status, 70 , 108 );
-                       
-                        ctx.font = 'Bold 13px Arial';
-                       ctx.fontSize = '13px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(`${message.author.presence.game === null ? "No Status" : message.author.presence.game.name}`, 150.00   , 180  );
-
-                      
-                       ctx.font = 'Bold 20px Arial ';
-                       ctx.fontSize = '15px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(`${defineduser.username}`, 150.50 , 140);
-
-
-                       ctx.font = 'Bold 15px Arial';
-                       ctx.fontSize = '15px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(`#${defineduser.discriminator}`, 227  , 108);
-
-                       var time2;
-     if(mentionned){
-         var time2 = `${dateFormat(message.mentions.users.first.joinedAt)}`;
-     } else {
-         var time2 = `${dateFormat(message.member.joinedAt)}`;
-         
-     }
-
-                       ctx.font = 'Bold 13px Arial ';
-                       ctx.fontSize = '13px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(`${moment(defineduser.createdTimestamp).fromNow()}`, 179 , 226 );
-                       
-                       
-    
-          
-                       ctx.font = 'Bold 13px Arial ';
-                       ctx.fontSize = '13px';
-                       ctx.fillStyle = "#ffffff";
-                       ctx.textAlign = "center";
-                       ctx.fillText(`${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')}`, 179 , 253);
-                       
-message.channel.sendFile(canvas.toBuffer())
-
-
-       })
-   })
-
-
-
-
-}
-
-})
-
-
-client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOkFQ.1-exkBVrlY7O803u4BOBwCpTTiY');
+client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
