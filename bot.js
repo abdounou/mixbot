@@ -13627,14 +13627,6 @@ client.on('typingStart', (ch, user) => {
     }
 })
  
-client.on('message', message => {
-    var args = message.content.split(/[ ]+/)
-    if(message.content.includes('discord.gg')){
-      if(!message.member.hasPermission('ADMINISTRATOR'))
-        message.delete()
-    return message.reply(`** يمنع نشر الروابط ! **`)
-    }
-});
 
 client.on('message', message => {
     if (message.content.startsWith("!رابط")) {
@@ -13722,10 +13714,6 @@ client.on('message', message => {
         console.log("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         console.log(`⚠️ Bot restarting... ⚠️`);
         console.log("===============================================\n\n");
-        client.destroy();
-        child_process.fork(__dirname + "/bot.js");
-        console.log(`Bot Successfully Restarted`);
-    }
  
   });
 
