@@ -14142,7 +14142,6 @@ welcomer.sendFile(canvas.toBuffer())
       });                    
  }
 });
-const fs = require('fs');
 const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
 const as = require('array-sort');
 const config = { prefix: "!", token: "NTI5NjA5NTM1NTQ4MTYyMDU5.DxzXFQ.riM6mlDUlFkS6Mo9K8VvNQLDzxA" };
