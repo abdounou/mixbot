@@ -7,23 +7,6 @@ client.on('ready', () => {
 
 //الاوامر//
 
-
-client.on("message", message => {
- if (message.content === "!help") {
-  const embed = new Discord.RichEmbed() 
-      .setColor("#ffff00")
-      .setThumbnail(message.author.avatarURL)
-      .setDescription(`
-`)
-
-
-message.author.sendEmbed(embed)
-
-}
-}); 
- 
- 
- 
 client.on("message", message => {
  if (message.content === "!help") {
   const embed = new Discord.RichEmbed() 
@@ -116,8 +99,7 @@ Black Bot ✨
 『!يخيرك بين شي وشي / لو خيروك』
 『!يعطيك عقاب و لازم تنفذه / عقاب』
 『!لعبه اسئله / كت تويت』
-**
-   
+**   
         
 `)
 
@@ -126,6 +108,7 @@ message.author.sendEmbed(embed)
 
 }
 }); 
+
 
 
 //العاب//
