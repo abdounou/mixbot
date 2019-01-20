@@ -7,23 +7,6 @@ client.on('ready', () => {
 
 //الاوامر//
 
-client.on("message", message => {
-    if(message.content.startsWith(prefix + 'help')) {
-        message.delete(5000)
-        if(!message.channel.guild) return;
-        const e = new Discord.RichEmbed()
-        .setColor('#36393e')
-        .setDescription(`**تم الارسال في الخاص**📬`)
-     const embed = new Discord.RichEmbed()
-         .setColor('#36393e')
-         .setTitle('Click To Join Support Server')
-         .setURL('')
-         .setDescription(``)
-   message.channel.send(e).then(m => m.delete(5000))
-   message.author.sendEmbed(embed).catch(error => message.reply('**خاصك مقفول**🔐'))
-   
-   }
-   });
 
 client.on("message", message => {
  if (message.content === "!help") {
