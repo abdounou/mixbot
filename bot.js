@@ -14117,7 +14117,6 @@ hero.on('message',async message => {
     //topRoyale.setThumbnail(message.guild.iconURL);
     topRoyale.addField(`**TOP 5 TEXT 💬**`, _topText.map(r => `**\`.${_textPointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).slice(0, 5), true);
     topRoyale.addField(`**TOP 5 VOICE 🎙**`, _topVoice.map(r => `**\`.${_voicePointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).slice(0, 5), true);
-    topRoyale.setFooter(`Developed By: YouseeF.#9060`, message.guild.iconURL);
     message.channel.send(topRoyale).catch(e => {
       if(e) return message.channel.send(`**. Error; \`${e.message}\`**`);
     });
