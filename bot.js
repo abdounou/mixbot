@@ -13981,7 +13981,6 @@ function play(guild, song) {
 }
 });
 
-
 const sWlc = {}
 const premium = ['475233499641806849', '', '', '']
 client.on('message', message => {
