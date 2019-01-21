@@ -14131,7 +14131,6 @@ hero.on('voiceStateUpdate', (u, member) => {
   setInterval(() => {
     if(!member.voiceChannel) return;
     if(member.selfDeafen) return;
-    vpoints[author].points += rPoints;
   }, 5000); // 5 Secs
 });
 
