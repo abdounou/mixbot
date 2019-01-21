@@ -13981,4 +13981,21 @@ function play(guild, song) {
 }
 });
 
+var server = 'Silver Community';
+
+client.on('ready', async => {
+    setInterval(() => {
+        client.channels.find('id', '536849468373467169').setName("W");
+        client.channels.find('id', '536849468373467169').setName("We");
+        client.channels.find('id', '536849468373467169').setName("Wel");
+        client.channels.find('id', '536849468373467169').setName("Welc");
+        client.channels.find('id', '536849468373467169').setName("Welco");
+        client.channels.find('id', '536849468373467169').setName("Welcom");
+        client.channels.find('id', '536849468373467169').setName("Welcome");
+        client.channels.find('id', '536849468373467169').setName("Welcome T");
+        client.channels.find('id', '536849468373467169').setName("Welcome To");
+        client.channels.find('id', '536849468373467169').setName(`Welcome To ${server}`);
+    })
+}), 5000;                
+
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
