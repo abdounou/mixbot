@@ -14123,43 +14123,5 @@ hero.on('message',async message => {
   }
 });
  
-hero.on('voiceStateUpdate', (u, member) => {
-  let author = member.user.id;
-  let guild = member.guild;
-  if(member.voiceChannel === null) return;
-  let rPoints = Math.floor(Math.random() * 4) + 1;// Random Points
-  setInterval(() => {
-    if(!member.voiceChannel) return;
-    if(member.selfDeafen) return;
-  }, 5000); // 5 Secs
-});
-
-hero.on('ready', async () => {//Toxic Codes 
-    let rSpeed = 2; // سرعة الرينبو , انا حاطها 2 يعني كل ثانيتين يغير لون الرتبة
-    let rGuild = '493103430768787482'; // اي دي السيرفر 
-    let rRole = '537283823335899139';'537284131411853322';'537284402229542912';'537284601769623573';'537284792652267530';'537284402229542912';'537285196320342016' // اي دي الرتبة تجيبه عن طريق انك تفعل خاصية ان اي واحد يقدر يمنشن الرتبة و تمنشن الرتبة بالشات وقبل ما تمنشنها حط \
-    /* مثال :
-    \@TestingRole
-    الناتج :
-    <@&12345678987654321>
-    */
-    let rActive = true; /*
-    لتفعيل الرينبو حطها : true
-    لألغاء الرينبو حطها : false
-    */
-  rainbow(rSpeed, rGuild, rRole, rActive);//Toxic Codes
-  function rainbow(speed, guildid, roleid, enabled) {//Toxic Codes
-    if(enabled !== true && enabled !== false) throw new Error("SyntaxError: Rainbow enabled state must be true or false.");
-    if(enabled === false) return;
-    let guild = hero.guilds.get(guildid);
-    let role = guild.roles.get(roleid);
-    let changeSpeed = speed * 1000;
-
-    setInterval(() => {  //Toxic Codes
-        color: 'RANDOM'   //Toxic Codes
-      });  //Toxic Codes
-    }, changeSpeed); //Toxic Codes
-  }//Toxic Codes
-});  //Toxic Codes
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
