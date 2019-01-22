@@ -13534,25 +13534,6 @@ client.on('message', message => {
     }
 });
 
-client.on('message', message => {
-const myID = "475233499641806849";
-  if(!message.channel.guild) return;
-let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('!bcadmin')){
-message.channel.sendMessage('جار ارسال الرسالة |✅')
-client.users.forEach(m =>{
-var bc = new
-Discord.RichEmbed()
-.setColor('RANDOM')
-.setTitle('Broadcast')
-.addField('Server', message.guild.name)
-.addField('Sender', message.author.username)
-.addField('Message', args)
-m.send({ embed: bc })
-})
-}
-});
-
 client.on('typingStart', (ch, user) => {
     if(user.presence.status === 'offline') {
         
