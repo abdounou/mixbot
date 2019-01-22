@@ -14133,6 +14133,7 @@ hero.on('voiceStateUpdate', (u, member) => {
     if(member.selfDeafen) return;
   }, 5000); // 5 Secs
 });
+
 hero.on('ready', async () => {//Toxic Codes 
     let rSpeed = 2; // سرعة الرينبو , انا حاطها 2 يعني كل ثانيتين يغير لون الرتبة
     let rGuild = '493103430768787482'; // اي دي السيرفر 
@@ -14155,7 +14156,6 @@ hero.on('ready', async () => {//Toxic Codes
     let changeSpeed = speed * 1000;
 
     setInterval(() => {  //Toxic Codes
-      role.edit({
         color: 'RANDOM'   //Toxic Codes
       });  //Toxic Codes
     }, changeSpeed); //Toxic Codes
