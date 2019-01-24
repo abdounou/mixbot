@@ -14106,8 +14106,12 @@ hero.on('message',async message => {
 });
 
  client.on('guildMemberAdd', member=> {
-    member.setNickname(`SC|| ${member.user.username}`)
+    member.setNickname(`SC| ${member.user.username}`)
 });
 
+client.on('guildMemberAdd', member=> {
+    var role = member.guild.roles.find("name","« Silver Member");
+    member.addRole(role);
+});
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
