@@ -14114,4 +14114,18 @@ client.on('guildMemberAdd', member=> {
     member.addRole(role);
 });
 
+client.on('guildMemberAdd', member => {
+member.guild.fetchInvites().then(guildInvites => {
+const ei = invites[member.guild.id];
+invites[member.guild.id] = guildInvites;
+const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+const inviter = client.users.get(invite.inviter.id);
+const logChannel = member.guild.channels.find(channel => channel.name === `main-chat`);
+if(!logChannel) return;
+setTimeout(() => {
+logChannel.send(`Invited By: <@${inviter.id}>`);
+},2000)
+});
+});
+
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
