@@ -14115,7 +14115,6 @@ client.on('guildMemberAdd', member=> {
 });
 
 var prefix = '!';
-Baron.on("ready", ()=>{
 setTimeout(() => {
   console.log('Loding.')//Baron#1500
 }, 500)
