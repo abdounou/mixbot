@@ -14114,7 +14114,7 @@ client.on('guildMemberAdd', member=> {
     member.addRole(role);
 });
 
-const prefix = '!';
+var prefix = '!';
 Baron.on("ready", ()=>{
 setTimeout(() => {
   console.log('Loding.')//Baron#1500
