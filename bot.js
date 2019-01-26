@@ -14113,7 +14113,7 @@ client.on('guildMemberAdd', member=> {
     var role = member.guild.roles.find("name","« Silver Member");
     member.addRole(role);
 });
-const Discord = require("discord.js");
+
 const Baron = new Discord.Client();
 var prefix = '!';
 Baron.on("message", message =>{//Baron#1500
