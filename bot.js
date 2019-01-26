@@ -14114,9 +14114,24 @@ client.on('guildMemberAdd', member=> {
     member.addRole(role);
 });
 
-const Baron = new Discord.Client();
-var prefix = '!';
-Baron.on("message", message =>{//Baron#1500
+const prefix = '!';
+client.on("ready", ()=>{
+Baron.user.setActivity('Baron#1500 Development', {type : 'watching'});
+console.log('Loding')
+setTimeout(() => {
+  console.log('Loding.')//Baron#1500
+}, 500)
+setTimeout(() => {
+  console.log('Loding..')//Baron#1500
+}, 1000)
+setTimeout(() => {
+  console.log('Loding...')//Baron#1500
+}, 1500)
+setTimeout(() => {
+  console.log(`Logged as ${Baron.user.tag}`)//Baron#1500
+}, 2000)
+})
+client.on("message", message =>{//Baron#1500
 //السطر ال تحت لمنع تكرار انشاء الرتب لو عاوز تغير اسم الرتب غيرها وحط اسمها فى السطر ال تحت كمان علشان ميحصلش سبام
 let roles = message.guild.roles.find(all=> all.name === "⇁『KiNG 』‏‏༄  ❥", "⇁『LEADER』‏‏༄  ❥", "⇁『BiG BOSS 』‏‏༄  ❥", "⇁『CAPTAIN 』‏‏༄  ❥", "⇁『SERGEANT 』‏‏༄  ❥",
 "⇁『youtuber 』‏‏༄  ❥", "⇁『ACTIVE 』‏‏༄  ❥");//Baron#1500
@@ -14257,7 +14272,7 @@ message.channel.send(message.member + '**جارى انشاء الرتب**').then
 }//Baron#1500
 }
 })//Baron#1500
-Baron.on("message", message =>{
+client.on("message", message =>{
   let roleyoutuber = message.guild.roles.find(r => r.name === "⇁『youtuber 』‏‏༄  ❥");
   let rolepubg = message.guild.roles.find(r => r.name === "playerunknowns");
   let rolecsgo = message.guild.roles.find(r => r.name === "counter-strike");
@@ -14531,6 +14546,5 @@ ch.setUserLimit(15)
     })//Baron#1500
  }
 }
-})
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
