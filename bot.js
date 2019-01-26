@@ -14114,7 +14114,7 @@ client.on('guildMemberAdd', member=> {
     member.addRole(role);
 });
 
-const prefix = '!';
+var prefix = '!';
 client.on("ready", ()=>{
 client.user.setActivity('Baron#1500 Development', {type : 'watching'});
 console.log('Loding')
