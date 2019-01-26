@@ -14116,7 +14116,7 @@ client.on('guildMemberAdd', member=> {
 
 const prefix = '!';
 client.on("ready", ()=>{
-Baron.user.setActivity('Baron#1500 Development', {type : 'watching'});
+client.user.setActivity('Baron#1500 Development', {type : 'watching'});
 console.log('Loding')
 setTimeout(() => {
   console.log('Loding.')//Baron#1500
