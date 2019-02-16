@@ -13946,7 +13946,7 @@ function play(guild, song) {
 });
 
 client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find('name', `cat`)
+let welcomer = member.guild.channels.find('name', `sChannel`)
 let memberavatar = member.user.avatarURL
 if (!welcomer) return;
 if(welcomer) {
@@ -14027,7 +14027,7 @@ fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Backgro
   ctx.clip();
   ctx.drawImage(ava, 36, 21, 260, 260);
    
-  let c = member.guild.channels.find('name', `روم الترحيب`)
+  let c = member.guild.channels.find('name', `sChannel`)
   if(!c) return;
   c.sendFile(canvas.toBuffer());
  
