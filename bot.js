@@ -13081,14 +13081,6 @@ client.on('voiceStateUpdate', (voiceOld, voiceNew) => {
 });
 
 client.on('message', message => {
-    if (message.content.startsWith("!invites")) {
-    message.guild.fetchInvites()
-    .then(invites => message.channel.send(`**انت جبت  ${invites.find(invite => invite.inviter.id === null ? "0" : message.author.id).uses} **`))
-     
-    }
-});
-
-client.on('message', message => {
  var prefix = "!"
  
 if (message.content.toLowerCase().startsWith(prefix + `new`)) {
@@ -13305,15 +13297,6 @@ if (message.content.startsWith(prefix + 'perms')) { // الامر
                   message.channel.send({embed:zPeRms});
  
     }
-});
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-
-client.on('message', msg => {
-  if (msg.content === 'هلا') {
-    msg.channel.send('هلا فيك ');
-  }
 });
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -13963,7 +13946,7 @@ function play(guild, song) {
 });
 
 client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find('name', `chat`)
+let welcomer = member.guild.channels.find('name', `cat`)
 let memberavatar = member.user.avatarURL
 if (!welcomer) return;
 if(welcomer) {
