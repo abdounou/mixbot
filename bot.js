@@ -13517,16 +13517,6 @@ client.on('message', message => {
     }
 });
 
-client.on('typingStart', (ch, user) => {
-    if(user.presence.status === 'offline') {
-        
-        ch.send(`${user} هاهاهاا , كشفتك وانت تكتب ي اوف لاين`)
-        .then(msg => {
-            msg.delete(10000)
-        })
-    }
-})
- 
 
 client.on('message', message => {
     if (message.content.startsWith("!رابط")) {
