@@ -13449,20 +13449,6 @@ channel.guild.owner.send(`<@!${channelremover.id}>
   },Otime)
   });
 
-client.on("message", msg => {
-let ownerid = '475233499641806849'
-if(msg.content === `<@${ownerid}>`){
-bot.users.get(ownerid).send(`
-في واحد منشنك
-
-In server: :arrow_down:
-\`${msg.guild.name}\`
- 
-By: :arrow_down:
-***${msg.author}***`);
-}
-})
-
 client.on('message', message => {
     var prefix = "!"
     if (message.content.startsWith(prefix + 'id')) {
