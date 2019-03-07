@@ -75,6 +75,7 @@ Black Bot ✨
 『!cv /انشاء روم صوتي』
 『!bc /برودكاست』
 『log /إنشاء روم وتسميتها **log**』
+『!antispread onloff / لمنع نشر الروابط』
 **
 
         ***__Music orders__***
@@ -14239,35 +14240,6 @@ client.on('message', message => {
     return message.reply(`**⛔ The Antispread ON ! So You Cant spread Here !**`)
     }
 
-});
-
-let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8"))
-
-client.on("message", message => {
-    if (!message.channel.guild) return;
-    if (message.author.bot) return;
-    if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
-        prefix: '!',
-    };
-    var prefix = prefixes[message.guild.id].prefix;
-    if (message.content.startsWith(prefix + 'prefix')) {
-        if (!message.member.hasPermission(`MANAGE_GUILD`)) return message.reply('You Dont Have Permissions `MANAGE_GUILD`!');
-        let args = message.content.split(" ").slice(1);
-        if (!args.join(" ")) return message.reply('Please Type The New `Prefix`!');
-        let PrefixSuccess = new Discord.RichEmbed()
-          .setColor("RANDOM")
-          .setTitle(`Successfully`)
-          .addField('The New Prefix Has been Set to:',`${args.join(" ")}`, true)
-          .setFooter(message.author.tag, message.author.avatarURL)
-          .setTimestamp();
-          message.channel.sendEmbed(PrefixSuccess);
-        prefixes[message.guild.id] = {
-          prefix: args.join(),
-      };
-        }
-    fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => {
-        if (err) console.error(err);
-    });
 });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
