@@ -13933,6 +13933,7 @@ client.on('message', message => {
     }
 
 });
+
 const getYoutubeID = require('get-youtube-id'); // npm i get-youtube-id
  
 const fetchVideoInfo = require('youtube-info'); // npm i youtube-info
@@ -13944,14 +13945,12 @@ const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
  
 const ytdl = require('ytdl-core'); // npm i ytdl-core
- 
-const fs = require('fs'); // npm i fs
- 
+  
 const gif = require("gif-search"); // npm i gif-search
  
 const client = new Discord.Client({disableEveryone: true});
  
-const prefix = "2";
+const prefix = "!";
 /////////////////////////
 ////////////////////////
  
