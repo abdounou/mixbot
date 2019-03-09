@@ -13951,7 +13951,6 @@ const ytdl = require('ytdl-core'); // npm i ytdl-core
 
 const gif = require("gif-search"); // npm i gif-search
 
-const client = new Discord.Client({disableEveryone: true});
 
 const prefix = "$";
 /////////////////////////
@@ -14246,7 +14245,7 @@ function play(guild, song) {
 
 
 client.on('message', message => {
-    if (message.content === 'help') {
+    if (message.content === '***') {
         let helpEmbed = new Discord.RichEmbed()
         .setTitle('**أوامر الميوزك...**')
         .setDescription('**برفكس البوت (!)**')
