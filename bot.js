@@ -13936,10 +13936,8 @@ client.on('message', message => {
 
 const { Client, RichEmbed } = require("discord.js");
 const ytdl = require("ytdl-core");
-const devs = ["" , "" , "" , "475233499641806849"]
 const request = require("request");
 const convert = require("hh-mm-ss")
-const fs = require("fs");
 const getYouTubeID = require("get-youtube-id");
 const fetchVideoInfo = require("youtube-info");
 const simpleytapi = require('simple-youtube-api')
