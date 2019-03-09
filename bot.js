@@ -13952,7 +13952,7 @@ const ytdl = require('ytdl-core'); // npm i ytdl-core
 const gif = require("gif-search"); // npm i gif-search
 
 
-const prefix = "$";
+var prefix = "$";
 /////////////////////////
 ////////////////////////
 
