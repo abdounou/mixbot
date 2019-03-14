@@ -13891,312 +13891,306 @@ client.on('message', message => {
     }
 
 });
-//this my first Music code  
 
-// make folder  and rename to this  settings.json  
-
-// Put inside folder  settings.json   this >>>>>>>>> 
-
-//module.exports = {
-  //  TOKEN: 'Token here ',    
-  //  YT_API_KEY: 'AIzaSyDeoIH0u1e72AtfpwSKKOSy3IPp2UHzqi4', 
- //   prefix: '+',
- //   devs: ['id onwer bot here']
-//}
-
-
-var config = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
-
-function isYoutube(str) {
-    console.log('function isYoutube is running')
-    return str.toLowerCase().indexOf("youtube.com") > -1;
-}
-const Discord = require("discord.js");
-//const client = new Discord.client();
-const client = new Discord.Client(); //my better version hahahaahahhh
 const ytdl = require("ytdl-core");
-const request = require("request");
-const fs = require("fs");
-const getYouTubeID = require("get-youtube-id");
-const fetchVideoInfo = require("youtube-info");
-
-var config = JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
-
-const yt_api_key = config.yt_api_key;
-const bot_controller = config.bot_controller;
-const prefix = config.prefix;
-const discord_token = config.discord_token;
-
-var queue = [];
-//var isPlaying = false;
-var dispatcher = null;
-var voiceChannel = null;
-var skipReq = 0;
-var skippers = [];
-//b
-var musicServers = {}; //all servers playing music
-var musicServer = {}; //current music server
-var musicQueue = []; //queue in current server
-var musicList = []; //names of music queue
-var musicResults = []; //all results of search query
-var musicSearch; //query for youtube search
-var isPlaying = false; //is music playing
-var isStreaming = false; //if music is streaming
-var isSearch = true; //if query is for search
-var isLooping = false; //if music is looping
-var isSearching = false; //if searching
-
-client.login(discord_token)
-
-client.on('message', function(message) {
-    if (message.author.equals(client.user)) return; //check if the client sent the message, if so ignore
-    if (!message.content.startsWith(prefix)) return; //check for prefix
-    var args = message.content.substring(prefix.length).split(" "); //take each argument
-    console.log('function client.on is running')
-    switch (args[0].toLowerCase()) {
-        case "play":
-            isSearch = true;
-            if (args[1]) { //if link or search query is provided, run code
-                serverID = JSON.parse(message.guild.id);
-                if (!message.member.voiceChannel) { //check if on voice channel
-                    message.reply('u not in voice channel b')
-                    return
-                };
-                if (isSearching == true) {
-                    message.reply('choose a song before you search again')
-                    return
-                }
-                if (args[1].indexOf('.com') && !args[1].indexOf('youtube.com')) {
-                    message.reply('only youtube b')
-                }
-                if (!musicServers[serverID]) musicServers[serverID] = {
-                    musicQueue: []
-                };
-                if (args[1].indexOf('youtube.com') >= 0) { //if its a link, run code
-                    musicServers[serverID].musicQueue.push(args[1]);
-                    musicServer = musicServers[serverID];
-                    info(message)
-                    isPlaying = true;
-                    isSearch = false;
-                } else { //if its a search query, run code
-                    for (var i = 1; i < args.length; i++) { //for loop to loop through search query
-                        musicSearch = musicSearch + ' ' + args[i]
-                    }
-
-                    youtube.search(musicSearch, 5, function(error, result) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            //push results to public variable
-                            for (var i = 0; i < 5; i++) {
-                                //console.log(result.items[i])
-                                musicResults[i] = result.items[i]
-                            }
-                            //choose song out of results
-                            var ret = "\n\n`";
-                            for (var i = 0; i < 4; i++) {
-                                //console.log(musicResults[i].snippet)
-                                console.log(i)
-                                //console.log(ret += (i + 1) + ": " + musicResults[i].snippet.title + "\n")
-                                ret += (i + 1) + ": " + musicResults[i].snippet.title + "\n";
-                            }
-                            ret += "`"
-                            message.reply('search results:' + ret);
-                            isSearching = true;
-                            isSearch = true;
-                        }
-                    });//Toxic Codes / n3k4a
-                }
-                if (!message.guild.voiceConnection && isSearch == false) message.member.voiceChannel.join().then(function(connection) {
-                    play(connection, message)
-                });
-                else if (isStreaming == false && isSearch == false) {
-                    play(connection, message)
-                }
-            } else {
-                message.reply('pls provide a link or search query')
-                return;
-            }
-            break;
-        case "choose":
-            serverID = JSON.parse(message.guild.id);
-            args[1] = args[1] - 1;
-            message.reply('now playing: ' + musicResults[args[1]].snippet.title)
-            musicServers[serverID].musicQueue.push('https://www.youtube.com/watch?v=' + musicResults[args[1]].id.videoId);
-            console.log(musicServers[serverID].musicQueue[0])
-            musicServer = musicServers[serverID];
-            isPlaying = true;
-            isSearching = false;
-            info(message)
-            if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
-                play(connection, message)
-            });
-            else if (isStreaming == false && message.guild.voiceConnection) {
-                play(connection, message)
-            }
-            break;
-        case "join":
-            message.member.voiceChannel.join()
-            message.reply('joining now!')
-            break;
-        case "skip":
-            if (musicServer.musicQueue[0]) {
-                serverID = JSON.parse(message.guild.id);
-                musicServer = musicServers[serverID];
-                musicList.shift()
-                musicServer.dispatcher.end()
-            }
-            break;
-        case "song":
-            message.reply('currently playing ' + musicList[0].title + ' ' + duration)
-            break;
-        case "queue":
-            var ret = "\n\n`";
-            for (var i = 0; i < musicList.length; i++) {
-                ret += (i + 1) + ": " + musicList[i].title + (i === 0 ? " **(current)**" : "") + "\n";
-            }
-            ret += "`"
-            message.reply(ret);
-            break;
-        case "pause":
-            if (isPlaying == true) musicServer.dispatcher.paused = true, message.reply('paused')
-            else message.reply('not playing anything b')
-            break;
-        case "resume":
-            if (isPlaying == true) musicServer.dispatcher.paused = false, message.reply('resumed')
-            else message.reply('not playing anything b')
-            break;
-        case "loop":
-            if (isLooping == true) {
-                isLooping = false
-            }
-            if (isLooping == false) {
-                isLooping = true
-            }
-            break;
-            client.on('ready', function() {
-                console.log("I am ready!");
-            });
-    }
-});
+const { Client, Util } = require('discord.js');
+const getYoutubeID = require('get-youtube-id');
+const fetchVideoInfo = require('youtube-info');
+const YouTube = require('simple-youtube-api');
+const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
+const queue = new Map();
 
 
-client.on('ready', function() {//Toxic Codes / n3k4a//Toxic Codes / n3k4a
-    console.log("I am ready!");
-});//Toxic Codes / n3k4a//Toxic Codes / n3k4a
-
-
-function play(connection, message) {
-    isStreaming = true;
-    musicServer.dispatcher = connection.playStream(ytdl(musicServer.musicQueue[0], {
-        filter: "audioonly"
-    }));
-    console.log('joined')
-    info(connection, message)
-    if (isLooping == false) musicServer.musicQueue.shift();
-    musicServer.dispatcher.on("end", function() {
-        if (musicServer.musicQueue[0]) musicList.shift(), message.reply('now playing ' + musicInfo.title.toLowerCase() + ' `' + duration + '` '), play(connection, message);
-        else isPlaying = false, isStreaming = false, connection.disconnect();
-    });
-}
-
-function info(message) {
-    fetchVideoInfo(getYouTubeID(musicServer.musicQueue[0])).then(function(musicInfo) {
-        musicList.push(musicInfo)
-        if ((musicInfo.duration / 60) >= 1) { //if duration is more than a minute
-            if ((musicInfo.duration / 3600) >= 1) { //if duration is more than a hour
-                var hours = Math.floor(musicInfo.duration / 3600);
-                if (Math.floor((musicInfo.duration / 60) - (hours * 3600)) < 0) {
-                    var minutes = 0
-                } else {
-                    var minutes = Math.floor((musicInfo.duration / 60) - (hours * 3600));
-                }
-                var seconds = Math.floor((musicInfo.duration - (minutes * 60)) - (hours * 3600));
-                if (minutes < 10) { //if less than 10 mins
-                    if (seconds < 10) { //if less than 10 secconds
-                        duration = `${hours}:0${minutes}:0${seconds}`
-                    } else {
-                        duration = `${hours}:0${minutes}:${seconds}`
-                    }
-                } else { //if more than 10 mins
-                    if (seconds < 10) { //if less than 10 secconds
-                        duration = `${hours}:${minutes}:0${seconds}`
-                    } else {
-                        duration = `${hours}:${minutes}:${seconds}`
-                    }
-                }
-            } else { //if duration is less than an hour, more than a minute
-                if (Math.floor(musicInfo.duration / 60) < 10) { //if less than 10 minutes
-                    var minutes = Math.floor(musicInfo.duration / 60);
-                    var seconds = musicInfo.duration - minutes * 60;
-                    if (seconds < 10) { //if less than 10 secconds
-                        duration = `0${minutes}:0${seconds}`
-                    } else {
-                        duration = `0${minutes}:${seconds}`
-                    }
-                } else {
-                    var minutes = Math.floor(musicInfo.duration / 60);
-                    var seconds = musicInfo.duration - minutes * 60;
-                    duration = `${minutes}:${seconds}`
-                }
-            }
-        } else { //if duration is less than a minute
-            if (musicInfo.duration < 10) { //if less than 10 secconds
-                var seconds = musicInfo.duration;
-                duration = `0${seconds}`
-            } else {
-                var seconds = musicInfo.duration;
-                duration = `${seconds}`
-            }
+var prefix = "!"
+client.on('message', async msg => {
+    if (msg.author.bot) return undefined;
+    if (!msg.content.startsWith(prefix)) return undefined;
+    const args = msg.content.split(' ');
+    const searchString = args.slice(1).join(' ');
+    const url = args[1] ? args[1] .replace(/<(.+)>/g, '$1') : '';
+    const serverQueue = queue.get(msg.guild.id);
+    let command = msg.content.toLowerCase().split(" ")[0];
+    command = command.slice(prefix.length)
+    if (command === `play`) {
+        const voiceChannel = msg.member.voiceChannel;
+        if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
+        const permissions = voiceChannel.permissionsFor(msg.client.user);
+        if (!permissions.has('CONNECT')) {
+            return msg.channel.send('لا يتوآجد لدي صلاحية للتكلم بهذآ الروم');
         }
-        message.reply('added ' + musicInfo.title + ' `' + duration + '` to the queue')
-    });
-}//Toxic Codes / n3k4a
-
-
-function playMusic(id, message) {//Toxic Codes / n3k4a
-    console.log('function playMusic is running')
-    voiceChannel = message.member.voiceChannel;
-
-    voiceChannel.join().then(function(connection) {
-        stream = ytdl("https://youtube.com/watch?v=" + id, {
-            filter: 'audioonly'
-        });
-        console.log("https://youtube.com/watch?v=" + id)
-        skipReq = 0;
-        skippers = [];
-
-        dispatcher = connection.playStream(stream);
-    });
-}//Toxic Codes / n3k4a
-
-function getID(str, cb) {
-    console.log('function getID is running')
-    if (isYoutube(str)) {
-        cb(getYouTubeID(str));
+        if (!permissions.has('SPEAK')) {
+            return msg.channel.send('لا يتوآجد لدي صلاحية للتكلم بهذآ الروم');
+        }
+ 
+        if (!permissions.has('EMBED_LINKS')) {
+            return msg.channel.sendMessage("**يجب توآفر برمشن `EMBED LINKS`لدي **rl")
+            }
+ 
+        if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+            const playlist = await youtube.getPlaylist(url);
+            const videos = await playlist.getVideos();
+            for (const video of Object.values(videos)) {
+                const video2 = await youtube.getVideoByID(video.id);
+                await handleVideo(video2, msg, voiceChannel, true);
+            }
+            return msg.channel.send(` **${playlist.title}** تم الإضآفة إلى قأئمة التشغيل`);
+        } else {
+            try {
+ 
+                var video = await youtube.getVideo(url);
+ 
+            } catch (error) {
+                try {
+                                            var fast = {};
+                    var videos = await youtube.searchVideos(searchString, 10);
+                    let index = 0;
+                    const embed1 = new Discord.RichEmbed()
+                    .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
+${videos.map(video2 => `[**${++index}**] **${video2.title}**`).join('\n')}`)
+                    .setFooter(`${msg.guild.name}`)
+                    msg.channel.sendEmbed(embed1).then(message =>{
+ 
+                        message.delete(15000)
+ 
+                    });
+                    try {
+                        var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
+                            maxMatches: 1,
+                            time: 20000,
+                            errors: ['time']
+                        })
+ 
+                        }catch(err) {
+                        console.error(err);
+                        return msg.channel.send('لم يتم إختيآر مقطع صوتي');
+                        }
+                    const videoIndex = parseInt(response.first().content);
+                    var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+                } catch (err) {
+                    console.error(err);
+                    return msg.channel.send(':x: لا يتوفر نتآئج بحث ');
+                }
+        }
+ 
+            return handleVideo(video, msg, voiceChannel);
+        }
+    } else if (command === `skip`) {
+        if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
+        if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
+        serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
+        return undefined;
+    } else if (command === `stop`) {
+        if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
+        if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
+        serverQueue.songs = [];
+        serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
+        return undefined;
+    } else if (command === `vol`) {
+        if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
+        if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
+        if (!args[1]) return msg.channel.send(`:loud_sound: مستوى الصوت **${serverQueue.volume}**`);
+        serverQueue.volume = args[1];
+        serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
+        return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
+    } else if (command === `np`) {
+        if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+        const embedNP = new Discord.RichEmbed()
+    .setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
+        return msg.channel.sendEmbed(embedNP);
+    } else if (command === `replay`) {
+        if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+        const embedNP = new Discord.RichEmbed()
+    .setDescription(`سيتم اعاده تشغيل الفديو :**${serverQueue.songs[0].title}**`)
+    msg.channel.send({embed: embedNP})
+     return handleVideo(video, msg, msg.member.voiceChannel);
+ 
+    } else if (command === `queue`) {
+        if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+        let index = 0;
+        const embedqu = new Discord.RichEmbed()
+.setDescription(`**Songs Queue**
+${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
+**الان يتم تشغيل** ${serverQueue.songs[0].title}`)
+        return msg.channel.sendEmbed(embedqu);
+    } else if (command === `pause`) {
+        if (serverQueue && serverQueue.playing) {
+            serverQueue.playing = false;
+            serverQueue.connection.dispatcher.pause();
+            return msg.channel.send('تم إيقاف الموسيقى مؤقتا!');
+        }
+        return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+    } else if (command === "resume") {
+        if (serverQueue && !serverQueue.playing) {
+            serverQueue.playing = true;
+            serverQueue.connection.dispatcher.resume();
+            return msg.channel.send('استأنفت الموسيقى بالنسبة لك !');
+        }
+        return msg.channel.send('لا يوجد شيء حالي في العمل.');
+    }
+ 
+    return undefined;
+async function handleVideo(video, msg, voiceChannel, playlist = false) {
+    const serverQueue = queue.get(msg.guild.id);
+    const song = {
+        id: video.id,
+        title: Util.escapeMarkdown(video.title),
+        url: `https://www.youtube.com/watch?v=${video.id}`,
+        time:`${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
+        eyad:`${video.thumbnails.high.url}`,
+        best:`${video.channel.title}`,
+        bees:`${video.raw.snippet.publishedAt}`,
+        shahd:`${video.raw.kind}`,
+        zg:`${video.raw.snippet.channelId}`,
+        views:`${video.raw.views}`,
+        like:`${video.raw.likeCount}`,
+        dislike:`${video.raw.dislikeCount}`,
+        hi:`${video.raw.id}`
+    };
+    if (!serverQueue) {
+        const queueConstruct = {
+            textChannel: msg.channel,
+            voiceChannel: voiceChannel,
+            connection: null,
+            songs: [],
+            volume: 5,
+            playing: true
+        };
+        queue.set(msg.guild.id, queueConstruct);
+        queueConstruct.songs.push(song);
+        try {
+            var connection = await voiceChannel.join();
+            queueConstruct.connection = connection;
+            play(msg.guild, queueConstruct.songs[0]);
+        } catch (error) {
+            console.error(`I could not join the voice channel: ${error}`);
+            queue.delete(msg.guild.id);
+            return msg.channel.send(`لا أستطيع دخول هذآ الروم ${error}`);
+        }
     } else {
-        search_video(str, function(id) {//Toxic Codes / n3k4a
-            cb(id);
-        });//Toxic Codes / n3k4a
-    }//Toxic Codes / n3k4a
-}//Toxic Codes / n3k4a
-
-function add_to_queue(strID) {
-    console.log('function add_to_queue is running')//Toxic Codes / n3k4a
-    if (isYoutube(strID)) {
-        queue.pish(getYouTubeID(strID));
-    } else {
-        queue.push(strID);
-    }//Toxic Codes / n3k4a
-}//Toxic Codes / n3k4a
-
-function search_video(query, callback) {//Toxic Codes / n3k4a
-    console.log('function search_video is running')
-    request("https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(query) + "&key=" + yt_api_key, function(error, response, body) {
-        //console.log(body)
-        //console.log(body.items[0])//Toxic Codes / n3k4a
-    });//Toxic Codes / n3k4a
-
-}; //Toxic Codes / n3k4a 
+        serverQueue.songs.push(song);
+        console.log(serverQueue.songs);
+        if (playlist) return undefined;
+        else return msg.channel.send(` **${song.title}** تم اضافه الاغنية الي القائمة!`);
+    }
+    return undefined;
+}
+ 
+function play(guild, song) {
+    const serverQueue = queue.get(guild.id);
+ 
+    if (!song) {
+        serverQueue.voiceChannel.leave();
+        queue.delete(guild.id);
+        return;
+    }
+    console.log(serverQueue.songs);
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+        .on('end', reason => {
+            if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+            else console.log(reason);
+            serverQueue.songs.shift();
+            play(guild, serverQueue.songs[0]);
+        })
+        .on('error', error => console.error(error));
+    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+        fetchVideoInfo(`${song.hi}`, function (err, fuck) {
+  if (err) throw new Error(err);
+  console.log(fuck);
+      const yyyy = {}
+  if(!yyyy[msg.guild.id]) yyyy[msg.guild.id] = {
+    like: `${fuck.likeCount}`,
+    dislike: `${fuck.dislikeCount}`
+  }
+    serverQueue.textChannel.send({embed : new Discord.RichEmbed()
+  .setTitle(`**${fuck.title}**`)
+  .setURL(fuck.url)
+  .addField('Time The Video :' , `${song.time}`, true)
+  .addField('Channel Name :' , `${song.best}`, true)
+  .addField('Channel ID :' , `${song.zg}`, true)
+  .addField('Video Created at :' , `${fuck.datePublished}`, true)
+  .addField('Views :' , `${fuck.views}`, true)
+  .addField('Like👍 :' , `${fuck.likeCount}`, true)
+  .addField('dislike👎 :' , `${fuck.dislikeCount}`, true)
+  .addField('comments :' , `${fuck.commentCount}`, true)
+    .setImage(`${song.eyad}`)
+    .setThumbnail('http://cdn.akhbaar24.com/430e061a-f89a-43c7-86d9-82fae5f7c495.jpg')
+    .setColor('#ff0000')
+    .setTimestamp()
+    }).then(love => {
+        love.react('👍').then(r=>{
+        love.react('👎').then(r =>{
+        love.react('🙌').then(r=> {
+    let likee = (reaction, user) => reaction.emoji.name === '👍' && user.id === msg.author.id;
+    let dislikee = (reaction, user) => reaction.emoji.name === '👎' && user.id === msg.author.id;
+    let cnn = (reaction, user) => reaction.emoji.name === '🙌' && user.id === msg.author.id;
+ 
+    let ll = love.createReactionCollector(likee , {max:5});
+    let dd = love.createReactionCollector(dislikee , {max:5});
+    let cn = love.createReactionCollector(cnn , {max:5});
+ 
+            ll.on("collect", r => {
+              yyyy[msg.guild.id].like++;
+    love.edit({embed : new Discord.RichEmbed()
+  .setTitle(`**${fuck.title}**`)
+  .setURL(fuck.url)
+  .addField('Time The Video :' , `${song.time}`, true)
+  .addField('Channel Name :' , `${song.best}`, true)
+  .addField('Channel ID :' , `${song.zg}`, true)
+  .addField('Video Created at :' , `${fuck.datePublished}`, true)
+  .addField('Views :' , `${fuck.views}`, true)
+  .addField('Like👍 :' , `${yyyy[msg.guild.id].like}`, true)
+  .addField('dislike👎 :' , `${fuck.dislikeCount}`, true)
+  .addField('comments :' , `${fuck.commentCount}`, true)
+    .setImage(`${song.eyad}`)
+    .setThumbnail('http://cdn.akhbaar24.com/430e061a-f89a-43c7-86d9-82fae5f7c495.jpg')
+    .setColor('#ff0000')
+    .setTimestamp()
+});
+    })
+ 
+    dd.on("collect", r => {
+      yyyy[msg.guild.id].dislike++;
+    love.edit({embed : new Discord.RichEmbed()
+  .setTitle(`**${fuck.title}**`)
+  .setURL(fuck.url)
+  .addField('Time The Video :' , `${song.time}`, true)
+  .addField('Channel Name :' , `${song.best}`, true)
+  .addField('Channel ID :' , `${song.zg}`, true)
+  .addField('Video Created at :' , `${fuck.datePublished}`, true)
+  .addField('Views :' , `${fuck.views}`, true)
+  .addField('Like👍 :' , `${fuck.likeCount}`, true)
+  .addField('dislike👎 :' , `${yyyy[msg.guild.id].dislike}`, true)
+  .addField('comments :' , `${fuck.commentCount}`, true)
+    .setImage(`${song.eyad}`)
+    .setThumbnail('http://cdn.akhbaar24.com/430e061a-f89a-43c7-86d9-82fae5f7c495.jpg')
+    .setColor('#ff0000')
+    .setTimestamp()
+});
+})
+    cn.on("collect", r => {
+    love.edit({embed : new Discord.RichEmbed()
+  .setTitle(`**${fuck.title}**`)
+  .setURL(fuck.url)
+  .addField('Time The Video :' , `${song.time}`, true)
+  .addField('Channel Name :' , `${song.best}`, true)
+  .addField('Channel ID :' , `${song.zg}`, true)
+  .addField('Video Created at :' , `${fuck.datePublished}`, true)
+  .addField('Views :' , `${fuck.views}`, true)
+  .addField('Like👍 :' , `${fuck.likeCount}`, true)
+  .addField('dislike👎 :' , `${fuck.dislikeCount}`, true)
+  .addField('comments :' , `${fuck.commentCount}`, true)
+    .setImage(`${song.eyad}`)
+    .setThumbnail('http://cdn.akhbaar24.com/430e061a-f89a-43c7-86d9-82fae5f7c495.jpg')
+    .setColor('#ff0000')
+    .setTimestamp()
+});
+})
+})
+})
+})
+})
+})
+}
+});
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
