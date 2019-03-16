@@ -13908,7 +13908,7 @@ client.on('message', async message => {
 .setDescription(`
 **لم يتم تسجيل أي نقطة حتى الأن **
 ** أمثلة للأوامر: **
-`**:small_orange_diamond:** ${prefix}points ${message.author} 1 `لتغيير نقاط شخص معين `
+🔸 `${prefix}points ${message.author}` 1 "**لتغيير نقاط شخص معين**"
 `**:small_orange_diamond:** ${prefix}points ${message.author} +1 `لزيادة نقاط شخص معين`
 `**:small_orange_diamond:** ${prefix}points ${message.author} -1 `لأزالة نقطة من شخص معين `
 `**:small_orange_diamond:** ${prefix}points ${message.author} 0 `لتصفير نقاط شخص معين `
