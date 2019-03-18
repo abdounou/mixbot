@@ -13698,7 +13698,7 @@ fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Backgro
   ctx.clip();
   ctx.drawImage(ava, 36, 21, 260, 260);
    
-  let c = member.guild.channels.find('name', `silver`)
+  let c = member.guild.channels.find('name', `chat`)
   if(!c) return;
   c.sendFile(canvas.toBuffer());
  
