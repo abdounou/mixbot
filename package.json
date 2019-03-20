@@ -17,6 +17,7 @@
     "forever": "^0.15.3",
     "fortnite": "^4.1.1",
     "fortnite-api": "^2.12.2",
+    "fs-nextra": "^0.4.5",
     "get-youtube-id": "^1.0.0",
     "giphy-api": "^1.2.7",
     "goo.gl": "^0.1.4",
