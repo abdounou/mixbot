@@ -13595,7 +13595,7 @@ const { readFile, readFileSync } = require('fs-nextra');
 const cnvs = require("canvas");
 const { Canvas } = require("canvas-constructor")
 const { get } = require('snekfetch');
-const prefix = "!"
+var prefix = "!"
 
 let inv = JSON.parse(fs.readFileSync("./userD.json", "UTF8"))
 
