@@ -653,26 +653,6 @@ if(command === `${prefix}message`) {
     message.reply("** :white_check_mark: , Sent a Message to **<@"+toSend.id+">")
  }
 });
-  
-   client.on("message", msg => {
-           var prefix = "!";
-  if(msg.content.startsWith (prefix + "id")) {
-    if(!msg.channel.guild) return msg.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');         
-      const embed = new Discord.RichEmbed();
-  embed.addField(":cloud_tornado:  الاسم", `**[ ${msg.author.username}#${msg.author.discriminator} ]**`, true)
-          .addField(":id:  الايدي", `**[ ${msg.author.id} ]**`, true)
-          .setColor("RANDOM")
-          .setFooter(msg.author.username , msg.author.avatarURL)
-          .setThumbnail(`${msg.author.avatarURL}`)
-          .setTimestamp()
-          .setURL(`${msg.author.avatarURL}`)
-          .addField(':spy:  الحالة', `**[ ${msg.author.presence.status.toUpperCase()} ]**`, true)
-          .addField(':satellite_orbital:   يلعب', `**[ ${msg.author.presence.game === null ? "No Game" : msg.author.presence.game.name} ]**`, true)
-          .addField(':military_medal:  الرتب', `**[ ${msg.member.roles.filter(r => r.name).size} ]**`, true)
-          .addField(':robot:  هل هو بوت', `**[ ${msg.author.bot.toString().toUpperCase()} ]**`, true);
-      msg.channel.send({embed: embed})
-  }
-});
 
 client.on('message', message => {
     if(message.content == '!member') {
@@ -13362,35 +13342,6 @@ channel.guild.owner.send(`<@!${channelremover.id}>
   },Otime)
   });
 
-client.on('message', message => {
-    var prefix = "!"
-    if (message.content.startsWith(prefix + 'id')) {
-        if (message.author.bot) return
-        if (!message.guild) return message.reply('**This Command Just In Servers**')
-        message.guild.fetchInvites().then(invs => {
-            let personalInvites = invs.filter(i => i.inviter.id === message.author.id)
-            let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0)
-          var roles = message.member.roles.map(roles => `**__${roles.name}__ |**`).join(` `)
-        let id = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTitle(':clipboard: | User identity info')
-        .setAuthor(message.author.username,message.author.avatarURL)
-        .addField('• Name :', message.author.username,true)
-        .addField('• Tag :', message.author.discriminator,true)
-        .addField('• ID :', message.author.id,true)
-        .addField('• JoinedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
-        .addField('• CreatedAt :', moment(message.joinedAt).format('D/M/YYYY h:mm a '),true)
-        .addField('• Total invites :', inviteCount,true)
-        .addField('• Roles :', roles)
-        .setTimestamp()
-        message.channel.sendEmbed(id).then(c => {
-            c.react('📋')
-                })
-            })
-        }
-   
-       
-});
 
 client.on('message', message => {
     if (message.content.startsWith("!رابط")) {
