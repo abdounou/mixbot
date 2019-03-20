@@ -13708,7 +13708,6 @@ function int(o, n) {
     var inter = setInterval(() => {
         if(!n.voiceChannel) return clearInterval(inter);
         if(n.voiceChannel === n.guild.afkChannel) return clearInterval(inter)
-        inv[n.user.id+n.guild.id].totalSecs++;
          fs.writeFile("./userD.json", JSON.stringify(inv), function(err) {
             if(err) throw err;
         });
