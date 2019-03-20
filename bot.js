@@ -13701,7 +13701,6 @@ client.on('message', async message => {
 
 client.on('voiceStateUpdate', (o, n) => {
     if(n.user.bot) return;
-    if(!inv[n.user.id+n.guild.id].totalSecs) inv[n.user.id+n.guild.id].totalSecs = 0;
     int(o, n);
     
 })
