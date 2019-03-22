@@ -13665,191 +13665,6 @@ function int(o, n) {
     }, 1000)
 }
 
-client.on('message', async msg => { 
-	if (msg.author.bot) return undefined;
-	if (!msg.content.startsWith(prefix)) return undefined;
-	const args = msg.content.split(' ');
-	const searchString = args.slice(1).join(' ');
-	const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
-	const serverQueue = queue.get(msg.guild.id);
-	let command = msg.content.toLowerCase().split(" ")[0];
-	command = command.slice(prefix.length)
-	if (command === `play`) {
-		const voiceChannel = msg.member.voiceChannel;
-		if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
-		const permissions = voiceChannel.permissionsFor(msg.client.user);
-		if (!permissions.has('CONNECT')) {
-			
-			return msg.channel.send('لا يتوآجد لدي صلاحية للتكلم بهذآ الروم');
-		}
-		if (!permissions.has('SPEAK')) {
-			return msg.channel.send('لا يتوآجد لدي صلاحية للتكلم بهذآ الروم');
-		}
-
-		if (!permissions.has('EMBED_LINKS')) {
-			return msg.channel.sendMessage("**يجب توآفر برمشن `EMBED LINKS`لدي **")
-		}
-
-		if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-			const playlist = await youtube.getPlaylist(url);
-			const videos = await playlist.getVideos();
-			
-			for (const video of Object.values(videos)) {
-				const video2 = await youtube.getVideoByID(video.id);
-				await handleVideo(video2, msg, voiceChannel, true);
-			}
-			return msg.channel.send(` **${playlist.title}** تم الإضآفة إلى قأئمة التشغيل`);
-		} else {
-			try {
-
-				var video = await youtube.getVideo(url);
-			} catch (error) {
-				try {
-					var videos = await youtube.searchVideos(searchString, 5);
-					let index = 0;
-					const embed1 = new Discord.RichEmbed()
-			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
-${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
-
-					.setFooter("S_C BOT")
-					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
-					
-					try {
-						var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
-							maxMatches: 1,
-							time: 15000,
-							errors: ['time']
-						});
-					} catch (err) {
-						console.error(err);
-						return msg.channel.send('لم يتم إختيآر مقطع صوتي');
-					}
-					const videoIndex = parseInt(response.first().content);
-					var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-				} catch (err) {
-					console.error(err);
-					return msg.channel.send(':X: لا يتوفر نتآئج بحث ');
-				}
-			}
-
-			return handleVideo(video, msg, voiceChannel);
-		}
-	} else if (command === `skip`) {
-		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
-		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
-		serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
-		return undefined;
-	} else if (command === `stop`) {
-		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
-		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
-		serverQueue.songs = [];
-		serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
-		return undefined;
-	} else if (command === `vol`) {
-		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
-		if (!args[1]) return msg.channel.send(`:loud_sound: مستوى الصوت **${serverQueue.volume}**`);
-		serverQueue.volume = args[1];
-		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
-		return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
-	} else if (command === `np`) {
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
-		const embedNP = new Discord.RichEmbed()
-	.setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
-		return msg.channel.sendEmbed(embedNP);
-	} else if (command === `queue`) {
-		
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
-		let index = 0;
-		
-		const embedqu = new Discord.RichEmbed()
-
-.setDescription(`**Songs Queue**
-${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
-**الان يتم تشغيل** ${serverQueue.songs[0].title}`)
-		return msg.channel.sendEmbed(embedqu);
-	} else if (command === `pause`) {
-		if (serverQueue && serverQueue.playing) {
-			serverQueue.playing = false;
-			serverQueue.connection.dispatcher.pause();
-			return msg.channel.send('تم إيقاف الموسيقى مؤقتا!');
-		}
-		return msg.channel.send('لا يوجد شيء حالي ف العمل.');
-	} else if (command === "resume") {
-		if (serverQueue && !serverQueue.playing) {
-			serverQueue.playing = true;
-			serverQueue.connection.dispatcher.resume();
-			return msg.channel.send('استأنفت الموسيقى بالنسبة لك !');
-		}
-		return msg.channel.send('لا يوجد شيء حالي في العمل.');
-	}
-
-	return undefined;
-});
-
-async function handleVideo(video, msg, voiceChannel, playlist = false) {
-	const serverQueue = queue.get(msg.guild.id);
-	console.log(video);
-	
-//	console.log('yao: ' + Util.escapeMarkdown(video.thumbnailUrl));
-	const song = {
-		id: video.id,
-		title: Util.escapeMarkdown(video.title),
-		url: `https://www.youtube.com/watch?v=${video.id}`
-	};
-	if (!serverQueue) {
-		const queueConstruct = {
-			textChannel: msg.channel,
-			voiceChannel: voiceChannel,
-			connection: null,
-			songs: [],
-			volume: 5,
-			playing: true
-		};
-		queue.set(msg.guild.id, queueConstruct);
-
-		queueConstruct.songs.push(song);
-
-		try {
-			var connection = await voiceChannel.join();
-			queueConstruct.connection = connection;
-			play(msg.guild, queueConstruct.songs[0]);
-		} catch (error) {
-			console.error(`I could not join the voice channel: ${error}`);
-			queue.delete(msg.guild.id);
-			return msg.channel.send(`لا أستطيع دخول هذآ الروم ${error}`);
-		}
-	} else {
-		serverQueue.songs.push(song);
-		console.log(serverQueue.songs);
-		if (playlist) return undefined;
-		else return msg.channel.send(` **${song.title}** تم اضافه الاغنية الي القائمة!`);
-	}
-	return undefined;
-}
-
-function play(guild, song) {
-	const serverQueue = queue.get(guild.id);
-
-	if (!song) {
-		serverQueue.voiceChannel.leave();
-		queue.delete(guild.id);
-		return;
-	}
-	console.log(serverQueue.songs);
-
-	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-		.on('end', reason => {
-			if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-			else console.log(reason);
-			serverQueue.songs.shift();
-			play(guild, serverQueue.songs[0]);
-		})
-		.on('error', error => console.error(error));
-	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
-}
 
 client.on('message', message => {
 var prefix = "!";
@@ -13861,5 +13676,130 @@ var cats = ["http://www.shuuf.com/shof/uploads/2015/09/09/jpg/shof_b9d73150f90a5
 message.channel.sendEmbed(cat);
     }
 });
+
+client.on('message', message => {
+    if(message.content == ('!profile')) {    
+ 
+             if (message.channel.type === 'dm') return message.reply('This Command Is Not Avaible In Dm\'s :x:');   
+            var Canvas = module.require('canvas');
+            var jimp = module.require('jimp');
+    
+     const w = ['ID1.png','ID2.png','ID3.png','ID4.png','ID5.png'];
+    
+             let Image = Canvas.Image,
+                 canvas = new Canvas(802, 404),
+                 ctx = canvas.getContext('2d');
+             ctx.patternQuality = 'bilinear';
+             ctx.filter = 'bilinear';
+             ctx.antialias = 'subpixel';
+             ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+             ctx.shadowOffsetY = 2;
+             ctx.shadowBlur = 2;
+             fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
+                 if (err) return console.log(err);
+                 let BG = Canvas.Image;
+                 let ground = new Image;
+                 ground.src = Background;
+                 ctx.drawImage(ground, 0, 0, 802, 404);
+    
+     })
+                                let user = message.mentions.users.first();
+          var men = message.mentions.users.first();
+             var heg;
+             if(men) {
+                 heg = men
+             } else {
+                 heg = message.author
+             }
+           var mentionned = message.mentions.members.first();
+              var h;
+             if(mentionned) {
+                 h = mentionned
+             } else {
+                 h = message.member
+             }
+             var ment = message.mentions.users.first();
+             var getvalueof;
+             if(ment) {
+               getvalueof = ment;
+             } else {
+               getvalueof = message.author;
+             }//ما خصك ,_,
+                                           let url = getvalueof.displayAvatarURL.endsWith(".webp") ? getvalueof.displayAvatarURL.slice(5, -20) + ".png" : getvalueof.displayAvatarURL;
+                                             jimp.read(url, (err, ava) => {
+                                                 if (err) return console.log(err);
+                                                 ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
+                                                     if (err) return console.log(err);
+                            
+                                                             let Avatar = Canvas.Image;
+                                                             let ava = new Avatar;
+                                                             ava.src = buf;
+                                                             ctx.beginPath();
+                                                           ctx.drawImage(ava, 335, 3, 160, 169);
+                                                     ctx.font = '35px Arial Bold';
+                                                     ctx.fontSize = '40px';
+                                                     ctx.fillStyle = "#dadada";
+                                                     ctx.textAlign = "center";
+                                                    
+                            
+                                                     ctx.font = '30px Arial Bold';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${getvalueof.username}`,655, 170);
+                                                                            
+                                                                        
+                                                          moment.locale('ar-ly');        
+                                            
+                                            
+                                                                    ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                             ctx.fillText(`${moment(h.joinedAt).fromNow()}`,150, 305);
+                                                              
+                                                              
+                                                                                                     ctx.font = '30px Arial';
+                                                     ctx.fontSize = '30px';
+                                                     ctx.fillStyle = "#ffffff";
+                                                                 ctx.fillText(`${moment(heg.createdTimestamp).fromNow()}`,150, 170); 
+                            
+                                                       let status;
+     if (getvalueof.presence.status === 'online') {
+         status = 'Online';
+     } else if (getvalueof.presence.status === 'dnd') {
+         status = 'dnd';
+     } else if (getvalueof.presence.status === 'idle') {
+         status = 'idle';
+     } else if (getvalueof.presence.status === 'offline') {
+         status = 'offline';
+     }
+     
+     
+                                          ctx.cont = '35px Arial';
+                                          ctx.fontSize = '30px';
+                                          ctx.filleStyle = '#ffffff'
+                                          ctx.fillText(`${status}`,655,305)
+                  
+                                                                   ctx.font = 'regular 30px Cairo';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                         ctx.fillText(`${h.presence.game === null ? "No playing" : h.presence.game.name}`,390,390);
+                            
+                               ctx.font = '35px Arial';
+                                                                   ctx.fontSize = '30px';
+                                                                   ctx.fillStyle = '#ffffff'
+                                                                   ctx.fillText(`#${heg.discriminator}`,390,260)
+                            
+                                 ctx.beginPath();
+                                 ctx.stroke();
+                               message.channel.sendFile(canvas.toBuffer());
+                            
+                            
+                          
+                            
+                             })
+                            
+                             })
+ }
+ });
 
 client.login('NTI5NjA5NTM1NTQ4MTYyMDU5.DyOrwA.fvbdO_o3Xl2a-7R-0IDvqA0Joek');
