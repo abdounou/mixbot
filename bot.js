@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require('fs');
 const moment = require('moment');
-const pretty = require("pretty-ms");
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -13805,7 +13804,6 @@ client.on('message', message => {
 const { Client, RichEmbed } = require("discord.js");
 const yt_api_key = "AIzaSyDFRGtM6WzFmqAXIgQcCB1_Q8L0NJj7a3M"
 const ytdl = require("ytdl-core");
-const convert = require("hh-mm-ss")
 const fetchVideoInfo = require("youtube-info");
 const simpleytapi = require('simple-youtube-api')
 const youtube = new simpleytapi(yt_api_key);
